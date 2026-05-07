@@ -8,15 +8,18 @@
 <style>
 :root{
   --pitch:#0d1d0d;--card:#162816;--card2:#1c3220;--border:#274527;
-  --lime:#4caf50;--gold:#f0c040;--gold2:#c8a000;--cream:#f2ead5;
-  --muted:#7aaa7a;--white:#ffffff;--blue:#42a5f5;--orange:#ff8a65;--red:#ef5350;
+  --lime:#4caf50;--gold:#f0c040;--cream:#f2ead5;--muted:#7aaa7a;
+  --white:#fff;--blue:#42a5f5;--orange:#ff8a65;--red:#ef5350;
+  --purple:#ce93d8;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Barlow',sans-serif;background:var(--pitch);color:var(--cream);min-height:100vh;
-  background-image:radial-gradient(ellipse 60% 40% at 10% 0%,rgba(30,70,30,.35) 0%,transparent 70%),radial-gradient(ellipse 50% 40% at 90% 100%,rgba(10,30,10,.4) 0%,transparent 70%),repeating-linear-gradient(0deg,transparent,transparent 47px,rgba(76,175,80,.03) 47px,rgba(76,175,80,.03) 48px);}
+  background-image:radial-gradient(ellipse 60% 40% at 10% 0%,rgba(30,70,30,.35) 0%,transparent 70%),
+  radial-gradient(ellipse 50% 40% at 90% 100%,rgba(10,30,10,.4) 0%,transparent 70%),
+  repeating-linear-gradient(0deg,transparent,transparent 47px,rgba(76,175,80,.03) 47px,rgba(76,175,80,.03) 48px);}
 
 /* HEADER */
-.hdr{background:linear-gradient(135deg,#09160a 0%,#122012 50%,#09160a 100%);border-bottom:2px solid var(--gold);padding:18px 20px 14px;position:sticky;top:0;z-index:100;box-shadow:0 6px 32px rgba(0,0,0,.7)}
+.hdr{background:linear-gradient(135deg,#09160a,#122012,#09160a);border-bottom:2px solid var(--gold);padding:18px 20px 14px;position:sticky;top:0;z-index:100;box-shadow:0 6px 32px rgba(0,0,0,.7)}
 .hdr-in{max-width:1140px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
 .logo{display:flex;align-items:center;gap:14px}
 .logo-icon{font-size:2.3rem;filter:drop-shadow(0 0 14px rgba(240,192,64,.7));animation:pop .6s ease}
@@ -50,60 +53,141 @@ body{font-family:'Barlow',sans-serif;background:var(--pitch);color:var(--cream);
 .sh-t{font-family:'Oswald',sans-serif;font-size:1.05rem;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--gold)}
 .sh-b{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;color:var(--muted);background:rgba(255,255,255,.06);padding:2px 10px;border-radius:20px}
 
-/* NOTE */
-.note{background:rgba(240,192,64,.07);border:1px solid rgba(240,192,64,.18);border-radius:8px;padding:10px 16px;font-size:.8rem;color:rgba(240,192,64,.8);margin-bottom:18px;display:flex;align-items:center;gap:8px}
+/* ══════════════════════════════════════════
+   MATCH SCORECARD WIDGET
+══════════════════════════════════════════ */
+.match-card{
+  background:linear-gradient(145deg,#0e2a0e,#162e16);
+  border:1px solid var(--border);border-radius:14px;
+  overflow:hidden;margin-bottom:24px;
+  box-shadow:0 8px 32px rgba(0,0,0,.5);
+}
+.match-header{
+  background:linear-gradient(90deg,#0a1e0a,#162a16);
+  border-bottom:1px solid var(--border);
+  padding:10px 20px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
+}
+.venue-tag{
+  font-family:'Barlow Condensed',sans-serif;font-size:.8rem;
+  color:var(--muted);letter-spacing:.5px;text-transform:uppercase;
+  display:flex;align-items:center;gap:6px;
+}
+.venue-tag svg{opacity:.6;flex-shrink:0}
+.match-status-pill{
+  font-family:'Barlow Condensed',sans-serif;font-size:.82rem;font-weight:700;
+  letter-spacing:.5px;text-transform:uppercase;
+  background:rgba(76,175,80,.15);border:1px solid rgba(76,175,80,.3);
+  color:var(--lime);padding:3px 12px;border-radius:20px;white-space:nowrap;
+}
+.match-body{padding:20px 24px}
 
-/* LEADERBOARD */
-.lb-grid{display:grid;grid-template-columns:1fr;gap:9px;margin-top:4px}
-.lb-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:13px 16px;display:flex;align-items:center;gap:14px;transition:transform .15s,box-shadow .15s;animation:si .35s ease both}
-.lb-card:hover{transform:translateX(4px);box-shadow:0 4px 20px rgba(0,0,0,.4)}
-@keyframes si{from{transform:translateX(-18px);opacity:0}to{transform:translateX(0);opacity:1}}
-.lb-card.r1{border-color:#f0c040;background:linear-gradient(135deg,#263a0a,#1a2a0a)}
-.lb-card.r2{border-color:#aaa}.lb-card.r3{border-color:#cd7f32}
-.rnk{font-family:'Oswald',sans-serif;font-size:1.5rem;font-weight:700;min-width:38px;text-align:center;color:var(--muted)}
-.r1 .rnk{color:#f0c040}.r2 .rnk{color:#ccc}.r3 .rnk{color:#cd7f32}
-.avt{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--card2),var(--lime));display:flex;align-items:center;justify-content:center;font-family:'Oswald',sans-serif;font-size:1rem;font-weight:700;color:#fff;flex-shrink:0;border:2px solid var(--border)}
-.r1 .avt{background:linear-gradient(135deg,#c8a000,#f0c040);border-color:#f0c040;color:#0a180a}
-.lb-info{flex:1;min-width:0}
-.lb-nm{font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:.5px;color:var(--cream);text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.bar-row{display:flex;align-items:center;gap:8px;margin-top:5px}
-.bar{flex:1;height:5px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden}
-.bar-f{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--lime),var(--gold));transition:width 1.2s ease}
-.bar-p{font-size:.7rem;color:var(--muted);font-family:'Barlow Condensed',sans-serif;white-space:nowrap}
-.lb-sc{font-family:'Oswald',sans-serif;font-size:1.75rem;font-weight:700;color:var(--lime);text-align:right;line-height:1}
-.r1 .lb-sc{color:var(--gold);font-size:2.1rem}
-.lb-sc-l{font-size:.68rem;color:var(--muted);text-align:right;letter-spacing:.5px;text-transform:uppercase}
+.teams-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;margin-bottom:18px}
+.team-block{display:flex;flex-direction:column;gap:4px}
+.team-block.right{align-items:flex-end;text-align:right}
+.team-name{font-family:'Oswald',sans-serif;font-size:1.4rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--white);line-height:1}
+.team-score{font-family:'Oswald',sans-serif;font-size:2.2rem;font-weight:700;color:var(--gold);line-height:1;margin-top:2px}
+.team-score.dim{color:var(--muted);font-size:1.8rem}
+.team-rr{font-family:'Barlow Condensed',sans-serif;font-size:.78rem;color:var(--muted);letter-spacing:.5px;margin-top:2px}
+.vs-badge{
+  font-family:'Oswald',sans-serif;font-size:.95rem;font-weight:700;letter-spacing:2px;
+  color:var(--muted);background:rgba(255,255,255,.05);border:1px solid var(--border);
+  border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
 
-/* DREAM 7 */
-.d7-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:10px;margin-top:6px}
+.result-bar{
+  background:rgba(240,192,64,.08);border:1px solid rgba(240,192,64,.18);
+  border-radius:8px;padding:10px 16px;
+  font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:600;
+  color:var(--gold);letter-spacing:.5px;text-align:center;
+}
+
+/* ══════════════════════════════════════════
+   DREAM 7
+══════════════════════════════════════════ */
+.d7-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:10px;margin-top:6px}
 .d7-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px;text-align:center;animation:fu .4s ease both}
 @keyframes fu{from{transform:translateY(12px);opacity:0}to{transform:translateY(0);opacity:1}}
-.d7-nm{font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;text-transform:uppercase;color:var(--cream);letter-spacing:.5px;margin-bottom:4px}
-.d7-pt{font-family:'Oswald',sans-serif;font-size:1.6rem;font-weight:700;color:var(--blue);line-height:1}
-.d7-lb{font-size:.68rem;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;margin-top:2px}
+.d7-nm{font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;text-transform:uppercase;color:var(--cream);letter-spacing:.5px;margin-bottom:6px}
+.d7-pt{font-family:'Oswald',sans-serif;font-size:1.7rem;font-weight:700;color:var(--blue);line-height:1}
+.d7-pt.neg{color:var(--red)}
+.d7-lb{font-size:.68rem;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;margin-top:3px}
 
-/* PREDICTIONS CARDS */
-.pred-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin-top:6px}
-.pred-card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;animation:fu .4s ease both}
-.pred-head{background:linear-gradient(135deg,#162a16,#1e3a1e);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
-.pred-nm{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--white)}
-.pred-ts{font-size:.7rem;color:var(--muted);font-family:'Barlow Condensed',sans-serif}
-.pred-tot{background:rgba(240,192,64,.12);border:1px solid rgba(240,192,64,.25);border-radius:6px;padding:3px 10px;font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:700;color:var(--gold);white-space:nowrap}
-.pred-body{padding:12px 16px}
-.pred-row{display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(39,69,39,.5);gap:8px}
+/* ══════════════════════════════════════════
+   PREDICTIONS — collapsible cards sorted by pts
+══════════════════════════════════════════ */
+.pred-list{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.pred-card{
+  background:var(--card);border:1px solid var(--border);border-radius:10px;
+  overflow:hidden;animation:fu .35s ease both;
+}
+.pred-summary{
+  display:flex;align-items:center;padding:13px 16px;cursor:pointer;
+  gap:12px;user-select:none;transition:background .15s;
+}
+.pred-summary:hover{background:rgba(76,175,80,.06)}
+
+.pred-rank{
+  font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:700;
+  min-width:28px;text-align:center;color:var(--muted);flex-shrink:0;
+}
+.pred-rank.r1{color:#f0c040}.pred-rank.r2{color:#ccc}.pred-rank.r3{color:#cd7f32}
+
+.pred-avt{
+  width:38px;height:38px;border-radius:50%;
+  background:linear-gradient(135deg,var(--card2),var(--lime));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Oswald',sans-serif;font-size:.9rem;font-weight:700;color:#fff;
+  flex-shrink:0;border:2px solid var(--border);
+}
+.pred-rank.r1 ~ .pred-avt{background:linear-gradient(135deg,#c8a000,#f0c040);border-color:#f0c040;color:#0a180a}
+
+.pred-nm-wrap{flex:1;min-width:0}
+.pred-nm{font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--cream);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pred-ts-sm{font-size:.7rem;color:var(--muted);font-family:'Barlow Condensed',sans-serif}
+
+.pred-tot{
+  font-family:'Oswald',sans-serif;font-size:1.4rem;font-weight:700;color:var(--lime);
+  white-space:nowrap;text-align:right;line-height:1;
+}
+.pred-tot-lbl{font-size:.65rem;color:var(--muted);text-align:right;text-transform:uppercase;letter-spacing:.5px}
+
+.expand-btn{
+  width:28px;height:28px;border-radius:50%;
+  background:rgba(255,255,255,.06);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  font-size:.85rem;color:var(--muted);transition:all .2s;font-weight:700;
+}
+.pred-summary:hover .expand-btn{background:rgba(76,175,80,.15);border-color:var(--lime);color:var(--lime)}
+.pred-card.open .expand-btn{background:rgba(240,192,64,.12);border-color:var(--gold);color:var(--gold);transform:rotate(45deg)}
+
+/* Details panel */
+.pred-details{
+  display:none;border-top:1px solid var(--border);
+  padding:12px 16px 14px;
+}
+.pred-card.open .pred-details{display:block}
+
+.pred-row{display:flex;align-items:center;padding:6px 0;border-bottom:1px solid rgba(39,69,39,.4);gap:8px}
 .pred-row:last-child{border-bottom:none}
-.pred-lbl{font-family:'Barlow Condensed',sans-serif;font-size:.73rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted);flex-shrink:0;min-width:88px}
-.pred-val{font-size:.86rem;color:var(--cream);flex:1;font-weight:500}
+.pred-lbl{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted);flex-shrink:0;min-width:86px}
+.pred-val{font-size:.85rem;color:var(--cream);flex:1;font-weight:500}
 .pred-val.winner{color:var(--lime);font-weight:700}
 .pred-val.captain{color:var(--gold);font-weight:700}
 .pred-val.vc{color:var(--blue);font-weight:700}
 .pred-val.extra{color:var(--orange)}
-.pred-val.empty{color:rgba(138,173,138,.3);font-style:italic;font-size:.78rem}
-.pp{background:rgba(76,175,80,.13);border:1px solid rgba(76,175,80,.25);border-radius:4px;padding:2px 7px;font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:700;color:var(--lime);white-space:nowrap;flex-shrink:0;min-width:42px;text-align:right}
+.pred-val.empty{color:rgba(138,173,138,.28);font-style:italic;font-size:.78rem}
+.pp{background:rgba(76,175,80,.13);border:1px solid rgba(76,175,80,.25);border-radius:4px;padding:2px 7px;font-family:'Barlow Condensed',sans-serif;font-size:.77rem;font-weight:700;color:var(--lime);white-space:nowrap;flex-shrink:0;min-width:40px;text-align:right}
 .pp.z{background:rgba(239,83,80,.08);border-color:rgba(239,83,80,.2);color:rgba(239,83,80,.65)}
 .pp.h{background:rgba(240,192,64,.15);border-color:rgba(240,192,64,.3);color:var(--gold)}
 
-@media(max-width:560px){.logo h1{font-size:1.1rem}.pred-grid{grid-template-columns:1fr}.lb-sc{font-size:1.4rem}.r1 .lb-sc{font-size:1.7rem}}
+@media(max-width:560px){
+  .logo h1{font-size:1.1rem}
+  .teams-row{grid-template-columns:1fr auto 1fr}
+  .team-score{font-size:1.7rem}
+  .team-name{font-size:1.1rem}
+}
 </style>
 </head>
 <body>
@@ -114,7 +198,7 @@ body{font-family:'Barlow',sans-serif;background:var(--pitch);color:var(--cream);
       <div class="logo-icon">🏏</div>
       <div>
         <h1>Cricket Prediction League</h1>
-        <p>Live Leaderboard &amp; Predictions</p>
+        <p>Live Scorecard &amp; Predictions</p>
       </div>
     </div>
     <div class="hdr-r">
@@ -125,32 +209,58 @@ body{font-family:'Barlow',sans-serif;background:var(--pitch);color:var(--cream);
 </div>
 
 <div class="tabs">
-  <div class="tab active" onclick="switchTab('lb',this)">🏆 Leaderboard</div>
+  <div class="tab active" onclick="switchTab('sc',this)">📋 Scorecard</div>
   <div class="tab" onclick="switchTab('pred',this)">🎯 Predictions</div>
 </div>
 
 <div class="content">
 
-  <!-- LEADERBOARD TAB -->
-  <div class="tab-panel active" id="tab-lb">
-    <div id="lb-ld" class="status"><div class="spin"></div><h3>Loading Leaderboard…</h3><p>Fetching live data from Google Sheets</p></div>
-    <div id="lb-main" style="display:none">
-      <div class="note">⭐ <span>Captain <strong>2×</strong> · Vice-Captain <strong>1.5×</strong> · Extraordinary Prediction: <strong>50 / 100</strong> bonus pts</span></div>
-      <div class="sh"><span class="sh-t">Rankings</span><span class="sh-b" id="lb-cnt"></span></div>
-      <div class="lb-grid" id="lb-list"></div>
-      <div style="height:26px"></div>
+  <!-- ── SCORECARD TAB ─────────────────────────────────── -->
+  <div class="tab-panel active" id="tab-sc">
+    <div id="sc-ld" class="status"><div class="spin"></div><h3>Loading Scorecard…</h3><p>Fetching live data</p></div>
+    <div id="sc-main" style="display:none">
+
+      <!-- Match card -->
+      <div class="match-card" id="match-card">
+        <div class="match-header">
+          <div class="venue-tag">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span id="sc-venue">—</span>
+          </div>
+          <div class="match-status-pill" id="sc-status">LIVE</div>
+        </div>
+        <div class="match-body">
+          <div class="teams-row">
+            <div class="team-block" id="team-a-block">
+              <div class="team-name" id="team-a-name">—</div>
+              <div class="team-score" id="team-a-score">—</div>
+              <div class="team-rr" id="team-a-rr"></div>
+            </div>
+            <div class="vs-badge">VS</div>
+            <div class="team-block right" id="team-b-block">
+              <div class="team-name" id="team-b-name">—</div>
+              <div class="team-score dim" id="team-b-score">—</div>
+              <div class="team-rr" id="team-b-rr"></div>
+            </div>
+          </div>
+          <div class="result-bar" id="sc-result">Loading result…</div>
+        </div>
+      </div>
+
+      <!-- Dream 7 -->
       <div class="sh"><span class="sh-t">🌟 Dream 7 Players</span><span class="sh-b" id="d7-cnt"></span></div>
       <div class="d7-grid" id="d7-list"></div>
+
     </div>
-    <div id="lb-err" class="status" style="display:none"><h3>⚠️ Could not load data</h3><p id="lb-err-p">Make sure sheet is set to Anyone with link – Viewer.</p></div>
+    <div id="sc-err" class="status" style="display:none"><h3>⚠️ Could not load</h3><p id="sc-err-p">Make sure sheet is public (Anyone with link – Viewer).</p></div>
   </div>
 
-  <!-- PREDICTIONS TAB -->
+  <!-- ── PREDICTIONS TAB ──────────────────────────────── -->
   <div class="tab-panel" id="tab-pred">
     <div id="pred-ld" class="status"><div class="spin"></div><h3>Loading Predictions…</h3></div>
     <div id="pred-main" style="display:none">
-      <div class="sh"><span class="sh-t">All Predictions + Points</span><span class="sh-b" id="pred-cnt"></span></div>
-      <div class="pred-grid" id="pred-grid"></div>
+      <div class="sh"><span class="sh-t">Predictions</span><span class="sh-b" id="pred-cnt"></span></div>
+      <div class="pred-list" id="pred-list"></div>
     </div>
     <div id="pred-err" class="status" style="display:none"><h3>⚠️ Could not load</h3><p>Check sheet permissions and refresh.</p></div>
   </div>
@@ -160,24 +270,21 @@ body{font-family:'Barlow',sans-serif;background:var(--pitch);color:var(--cream);
 <script>
 const SHEET_ID='1FrLu-ket-ZUIE5UPr8BkVuuvRMWtoJ3O283RIsosarg';
 
-/* ── CSV parser ─────────────────────────────────────────── */
+/* ── CSV ─────────────────────────────────────────────── */
 function parseCSV(t){
   const rows=[];
   for(const line of t.split('\n')){
     const cols=[];let cur='',inQ=false;
     for(let i=0;i<line.length;i++){
       const c=line[i];
-      if(c==='"'){inQ=!inQ;}
-      else if(c===','&&!inQ){cols.push(cur.trim());cur='';}
-      else{cur+=c;}
+      if(c==='"'){inQ=!inQ;}else if(c===','&&!inQ){cols.push(cur.trim());cur='';}else{cur+=c;}
     }
-    cols.push(cur.trim());
-    rows.push(cols);
+    cols.push(cur.trim());rows.push(cols);
   }
   return rows;
 }
 
-/* ── helpers ────────────────────────────────────────────── */
+/* ── helpers ─────────────────────────────────────────── */
 const $=id=>document.getElementById(id);
 const sh=id=>{const e=$(id);if(e)e.style.display='';};
 const hd=id=>{const e=$(id);if(e)e.style.display='none';};
@@ -192,10 +299,10 @@ function fmtDate(ts){
   catch{return ts;}
 }
 
-/* ── LOAD ───────────────────────────────────────────────── */
+/* ── LOAD ─────────────────────────────────────────────── */
 async function loadData(){
   const btn=$('rBtn');btn.disabled=true;btn.textContent='⟳ Loading…';
-  sh('lb-ld');hd('lb-main');hd('lb-err');
+  sh('sc-ld');hd('sc-main');hd('sc-err');
   sh('pred-ld');hd('pred-main');hd('pred-err');
   try{
     const res=await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv`);
@@ -203,131 +310,103 @@ async function loadData(){
     const text=await res.text();
     if(text.startsWith('<!'))throw new Error('Sheet is private or not found');
     const all=parseCSV(text);
-    /* ── index map (0-based) ──────────────────────────────
-       0       = row 1 (headers)
-       1-20    = rows 2-21  (predictions)
-       23-42   = rows 24-43 (points;  ptRow[i] = all[i+22], i=1..20)
-       44-50   = rows 45-51 (leaderboard D45:G51 → cols 3-6)
-       46-52   = rows 47-53 (Dream7    J47:K53  → cols 9-10)
-    ───────────────────────────────────────────────────── */
-    const headers  = all[0]||[];
+    /* index map (0-based):
+       rows 2-21  → all[1..20]  predictions
+       rows 24-43 → all[23..42] points  (pred[i] → pts[i+22])
+       row  22    → all[21]     scorecard row 1 (A22,F22,I22)
+       row  23    → all[22]     scorecard row 2 (I23,M23)
+       rows 47-53 → all[46..52] Dream7 J-K cols 9-10
+    */
     const predRows = all.slice(1,21).filter(r=>r.some(c=>c));
-    const lbRows   = all.slice(44,51);   // rows 45-51
-    const d7Rows   = all.slice(46,53);   // rows 47-53
-    renderLeaderboard(lbRows,d7Rows);
-    renderPredictions(predRows,all);
+    const sc1      = all[21]||[];   // row 22
+    const sc2      = all[22]||[];   // row 23
+    const d7Rows   = all.slice(46,53);
+
+    renderScorecard(sc1, sc2, d7Rows);
+    renderPredictions(predRows, all);
     $('tsLbl').textContent='Updated '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
   }catch(e){
     console.error(e);
-    hd('lb-ld');hd('lb-main');sh('lb-err');$('lb-err-p').textContent='Error: '+e.message;
+    hd('sc-ld');hd('sc-main');sh('sc-err');$('sc-err-p').textContent='Error: '+e.message;
     hd('pred-ld');hd('pred-main');sh('pred-err');
   }
   btn.disabled=false;btn.textContent='⟳ Refresh';
 }
 
 /* ══════════════════════════════════════════════════════
-   LEADERBOARD  — reads D45:G51 (cols 3-6 in each row)
-   Auto-detects: name col, points col, percentage col
+   SCORECARD
+   A22=col0  F22=col5  I22=col8
+   I23=col8  M23=col12
 ══════════════════════════════════════════════════════ */
-function renderLeaderboard(lbRows,d7Rows){
-  /* cols 3-6 within each full-sheet row */
-  const ex=row=>row.slice(3,7);
-
-  /* try to find header row (may be row 0 or first non-empty) */
-  const hdrRow=lbRows[0]||[];
-  const hdr=ex(hdrRow).map(h=>(h||'').toLowerCase());
-  const dataRows=lbRows.slice(1).filter(r=>ex(r).some(c=>c));
-
-  /* detect columns by header labels */
-  let nC=-1,pC=-1,pctC=-1;
-  hdr.forEach((h,i)=>{
-    if(/name|player/i.test(h)) nC=i;
-    else if(/total|point|pts|score/i.test(h)) pC=i;
-    else if(/%|percent/i.test(h)) pctC=i;
-  });
-  /* fallback by content */
-  if(nC===-1){
-    const first=ex(dataRows[0]||[]);
-    first.forEach((v,i)=>{if(isNaN(parseFloat(v))&&v)nC=i;});
-    if(nC===-1)nC=0;
-  }
-  if(pC===-1){
-    let mx=0;
-    for(let i=0;i<4;i++){
-      if(i===nC)continue;
-      const s=dataRows.reduce((a,r)=>a+n0(ex(r)[i]),0);
-      if(s>mx){mx=s;pC=i;}
-    }
-  }
-  if(pctC===-1){
-    for(let i=0;i<4;i++){
-      if(i===nC||i===pC)continue;
-      const vals=dataRows.map(r=>n0(ex(r)[i]));
-      if(vals.length&&vals.every(v=>v>=0&&v<=100)&&vals.some(v=>v>0)){pctC=i;break;}
+function renderScorecard(sc1, sc2, d7Rows){
+  /* --- parse team names from A22 ---
+     could be "RCB vs LSG" or two separate cells */
+  const teamsRaw = (sc1[0]||'').trim();
+  let teamA='', teamB='';
+  if(teamsRaw.includes(' vs ')||teamsRaw.includes(' VS ')){
+    const parts=teamsRaw.split(/\s+vs\s+/i);
+    teamA=parts[0]||'';teamB=parts[1]||'';
+  } else {
+    teamA=teamsRaw;
+    /* try next non-empty cell */
+    for(let i=1;i<sc1.length;i++){
+      const v=(sc1[i]||'').trim();
+      if(v&&i!==5&&i!==8){teamB=v;break;}
     }
   }
 
-  const people=dataRows.map(r=>{
-    const c=ex(r);
-    return{name:(c[nC]||'').trim(),pts:n0(c[pC]),pct:pctC!==-1?n0(c[pctC]):null};
-  }).filter(p=>p.name).sort((a,b)=>b.pts-a.pts);
+  /* F22 = scores (col 5). Could be "180/5 (20 ov) | 145/8 (20 ov)" or single score */
+  const scoresRaw=(sc1[5]||'').trim();
+  let scoreA=scoresRaw, scoreB='';
+  if(scoresRaw.includes('|')){
+    const parts=scoresRaw.split('|');
+    scoreA=(parts[0]||'').trim();scoreB=(parts[1]||'').trim();
+  } else if(scoresRaw.includes('/')){
+    /* might be just one score */
+    scoreA=scoresRaw;
+  }
 
-  const maxPts=people.length?people[0].pts:1;
-  const medals=['🥇','🥈','🥉'];
-  const list=$('lb-list');list.innerHTML='';
+  /* I22 = result / who won (col 8) */
+  const result=(sc1[8]||'').trim();
 
-  people.forEach((p,i)=>{
-    const rank=i+1;
-    const rc=rank<=3?'r'+rank:'';
-    /* use sheet's own % if available, else relative to leader */
-    const barPct=p.pct!==null?p.pct:(maxPts>0?Math.round((p.pts/maxPts)*100):0);
-    const pctLbl=p.pct!==null?p.pct.toFixed(1)+'%':barPct+'%';
-    const card=document.createElement('div');
-    card.className='lb-card '+rc;
-    card.style.animationDelay=(i*.05)+'s';
-    card.innerHTML=`
-      <div class="rnk">${rank<=3?medals[rank-1]:rank}</div>
-      <div class="avt">${esc(initials(p.name))}</div>
-      <div class="lb-info">
-        <div class="lb-nm">${esc(p.name)}</div>
-        <div class="bar-row">
-          <div class="bar"><div class="bar-f" style="width:${barPct}%"></div></div>
-          <span class="bar-p">${pctLbl}</span>
-        </div>
-      </div>
-      <div>
-        <div class="lb-sc">${fmt(p.pts)}</div>
-        <div class="lb-sc-l">pts</div>
-      </div>`;
-    list.appendChild(card);
-  });
-  $('lb-cnt').textContent=people.length+' players';
+  /* I23 = run rate (col 8 of row 23) */
+  const rr=(sc2[8]||'').trim();
 
-  /* Dream 7 — J47:K53 → cols 9-10 */
+  /* M23 = venue (col 12 of row 23) */
+  const venue=(sc2[12]||'').trim();
+
+  $('sc-venue').textContent=venue||'Venue TBD';
+  $('sc-status').textContent=result?'RESULT':'UPCOMING';
+  $('sc-status').style.background=result?'rgba(240,192,64,.15)':'rgba(76,175,80,.15)';
+  $('sc-status').style.borderColor=result?'rgba(240,192,64,.3)':'rgba(76,175,80,.3)';
+  $('sc-status').style.color=result?'var(--gold)':'var(--lime)';
+
+  $('team-a-name').textContent=teamA||'Team A';
+  $('team-b-name').textContent=teamB||'Team B';
+  $('team-a-score').textContent=scoreA||'—';
+  $('team-b-score').textContent=scoreB||'—';
+  if(rr) $('team-a-rr').textContent='RR '+rr;
+  $('sc-result').textContent=result||'Match result pending';
+
+  /* Dream 7 */
   const d7=$('d7-list');d7.innerHTML='';
   d7Rows.filter(r=>(r[9]||'').trim()).forEach((r,i)=>{
     const nm=(r[9]||'').trim(),pts=n0(r[10]);
     const card=document.createElement('div');
     card.className='d7-card';card.style.animationDelay=(i*.06)+'s';
-    card.innerHTML=`<div class="d7-nm">${esc(nm)}</div><div class="d7-pt">${fmt(pts)}</div><div class="d7-lb">Dream 7 Pts</div>`;
+    card.innerHTML=`<div class="d7-nm">${esc(nm)}</div><div class="d7-pt${pts<0?' neg':''}">${fmt(pts)}</div><div class="d7-lb">Pts</div>`;
     d7.appendChild(card);
   });
   $('d7-cnt').textContent=d7.children.length+' players';
 
-  hd('lb-ld');sh('lb-main');hd('lb-err');
+  hd('sc-ld');sh('sc-main');hd('sc-err');
 }
 
 /* ══════════════════════════════════════════════════════
-   PREDICTIONS + POINTS
-   Column map (0-based in sheet):
-     0=Timestamp  1=Name
-     2=Winner     3=1stInn   4=2ndInn
-     5=Player1    6=Player2  7=Player3  8=Player4  9=Player5
-     10=Captain(2x)  11=ViceCaptain(1.5x)
-     12=ExtraQ    13=ExtraA
-   Points row index = predRowIndex + 22
-   (pred at all[i], pts at all[i+22], where i = 1..20)
-   Extra pts in col 12 of pts row (m24:n24 merged)
+   PREDICTIONS — sorted by total points, collapsible
+   Col map: 0=Timestamp 1=Name 2=Winner 3=1stInn 4=2ndInn
+            5-9=Players1-5 10=Captain 11=VC 12=ExtraQ 13=ExtraA
+   Points: pred all[i], pts all[i+22]
 ══════════════════════════════════════════════════════ */
 const FIELDS=[
   {col:2, lbl:'Winner',         cls:'winner'},
@@ -338,27 +417,34 @@ const FIELDS=[
   {col:7, lbl:'Player 3',       cls:''},
   {col:8, lbl:'Player 4',       cls:''},
   {col:9, lbl:'Player 5',       cls:''},
-  {col:10,lbl:'Captain ★ 2×',  cls:'captain'},
+  {col:10,lbl:'Captain ★ 2×',   cls:'captain'},
   {col:11,lbl:'V.Captain 1.5×', cls:'vc'},
 ];
-
 function ppCls(v){if(v<=0)return'z';if(v>=50)return'h';return'';}
 
-function renderPredictions(predRows,all){
-  const grid=$('pred-grid');grid.innerHTML='';
-  predRows.forEach((pred,ri)=>{
-    /* ri=0 → pred is all[1], pts is all[23] → offset 22 from same all index */
-    const predIdx=ri+1;
-    const ptsRow=all[predIdx+22]||[];
-    const name=(pred[1]||'').trim();if(!name)return;
+function renderPredictions(predRows, all){
+  /* build entries with total */
+  const entries=predRows.map((pred,ri)=>{
+    const ptsRow=all[ri+1+22]||[];
+    const name=(pred[1]||'').trim();
+    if(!name)return null;
+    const totalPts=FIELDS.reduce((a,f)=>a+n0(ptsRow[f.col]),0)+n0(ptsRow[12]);
+    return{pred,ptsRow,name,totalPts,ri};
+  }).filter(Boolean);
 
-    /* sum all points for total */
-    const totalPts=FIELDS.reduce((acc,f)=>acc+n0(ptsRow[f.col]),0)+n0(ptsRow[12]);
+  /* sort by total pts desc */
+  entries.sort((a,b)=>b.totalPts-a.totalPts);
 
-    const card=document.createElement('div');
-    card.className='pred-card';card.style.animationDelay=(ri*.04)+'s';
+  const medals=['🥇','🥈','🥉'];
+  const list=$('pred-list');list.innerHTML='';
 
-    let rowsHtml=FIELDS.map(f=>{
+  entries.forEach((e,i)=>{
+    const rank=i+1;
+    const rc=rank<=3?'r'+rank:'';
+    const {pred,ptsRow,name,totalPts}=e;
+
+    /* build details rows */
+    let detailsHtml=FIELDS.map(f=>{
       const val=(pred[f.col]||'').trim();
       const pts=n0(ptsRow[f.col]);
       return `<div class="pred-row">
@@ -368,34 +454,46 @@ function renderPredictions(predRows,all){
       </div>`;
     }).join('');
 
-    /* extraordinary prediction */
     const eQ=(pred[12]||'').trim(),eA=(pred[13]||'').trim();
     const ePts=n0(ptsRow[12]);
     if(eQ||eA){
-      const display=eQ+(eA?' → '+eA:'');
-      rowsHtml+=`<div class="pred-row">
+      detailsHtml+=`<div class="pred-row">
         <span class="pred-lbl">Extra Pred.</span>
-        <span class="pred-val extra">${esc(display)}</span>
+        <span class="pred-val extra">${esc(eQ+(eA?' → '+eA:''))}</span>
         <span class="pp ${ppCls(ePts)}">${fmt(ePts)} pts</span>
       </div>`;
     }
 
+    const card=document.createElement('div');
+    card.className='pred-card';
+    card.style.animationDelay=(i*.04)+'s';
     card.innerHTML=`
-      <div class="pred-head">
-        <div>
+      <div class="pred-summary" onclick="toggleCard(this.closest('.pred-card'))">
+        <div class="pred-rank ${rc}">${rank<=3?medals[rank-1]:rank}</div>
+        <div class="pred-avt">${esc(initials(name))}</div>
+        <div class="pred-nm-wrap">
           <div class="pred-nm">${esc(name)}</div>
-          <div class="pred-ts">${fmtDate(pred[0])}</div>
+          <div class="pred-ts-sm">${fmtDate(pred[0])}</div>
         </div>
-        <div class="pred-tot">${fmt(totalPts)} pts</div>
+        <div>
+          <div class="pred-tot">${fmt(totalPts)}</div>
+          <div class="pred-tot-lbl">pts</div>
+        </div>
+        <div class="expand-btn">+</div>
       </div>
-      <div class="pred-body">${rowsHtml}</div>`;
-    grid.appendChild(card);
+      <div class="pred-details">${detailsHtml}</div>`;
+    list.appendChild(card);
   });
-  $('pred-cnt').textContent=grid.children.length+' entries';
+
+  $('pred-cnt').textContent=entries.length+' players';
   hd('pred-ld');sh('pred-main');hd('pred-err');
 }
 
-/* ── Tab switch ─────────────────────────────────────────── */
+function toggleCard(card){
+  card.classList.toggle('open');
+}
+
+/* ── Tab switch ──────────────────────────────────────── */
 function switchTab(name,el){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
