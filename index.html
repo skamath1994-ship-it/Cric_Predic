@@ -358,7 +358,20 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--cream);min
 
     </div>
     <div id="sc-err" class="status" style="display:none">
-      <h3>⚠️ Could not load</h3><p id="sc-err-p">Check sheet permissions and try refreshing.</p>
+      <h3>⚠️ Could not load</h3>
+      <p id="sc-err-p">Check sheet permissions and try refreshing.</p>
+      <div style="margin-top:16px;font-size:.75rem;color:var(--muted)">
+        <p>Make sure the sheet tab is named exactly <strong style="color:var(--gold)">"Scorecard T20"</strong></p>
+        <p style="margin-top:6px">Or enter the exact tab name below:</p>
+        <div style="display:flex;gap:8px;margin-top:8px;justify-content:center;flex-wrap:wrap">
+          <input id="sheetNameInput" type="text" placeholder="e.g. Scorecard T20"
+            style="background:#1a2a1a;border:1px solid var(--border);color:var(--cream);padding:6px 10px;border-radius:6px;font-size:.82rem;width:180px"/>
+          <button onclick="tryCustomSheetName()"
+            style="background:rgba(240,192,64,.15);border:1px solid rgba(240,192,64,.3);color:var(--gold);padding:6px 14px;border-radius:6px;cursor:pointer;font-size:.82rem">
+            Try This Name
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -376,8 +389,17 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--cream);min
 
 <script>
 const SHEET_ID='1FrLu-ket-ZUIE5UPr8BkVuuvRMWtoJ3O283RIsosarg';
-const URL_MAIN=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv`;
-const URL_SC  =`https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&sheet=Scorecard%20T20`;
+
+/* gviz/tq endpoint is more reliable for fetching named sheet tabs than /export */
+const URL_MAIN=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv`;
+/* Try multiple possible sheet name variants in order */
+const SC_SHEET_NAMES=['Scorecard T20','scorecard t20','Scorecard%20T20','ScoreCard T20'];
+let SC_URL_INDEX=0;
+
+function getScUrl(){
+  const name=SC_SHEET_NAMES[SC_URL_INDEX]||SC_SHEET_NAMES[0];
+  return `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(name)}`;
+}
 
 /* ── CSV ── */
 function parseCSV(t){
@@ -417,18 +439,49 @@ async function loadData(){
   sh('sc-ld');hd('sc-main');hd('sc-err');
   sh('pred-ld');hd('pred-main');hd('pred-err');
   try{
-    const [mainRes, scRes] = await Promise.all([fetch(URL_MAIN), fetch(URL_SC)]);
+    /* Fetch main sheet */
+    const mainRes=await fetch(URL_MAIN);
     if(!mainRes.ok) throw new Error('Main sheet HTTP '+mainRes.status);
-    if(!scRes.ok)   throw new Error('Scorecard sheet HTTP '+scRes.status);
-    const [mainTxt, scTxt] = await Promise.all([mainRes.text(), scRes.text()]);
-    if(mainTxt.startsWith('<!')) throw new Error('Sheet is private or not found');
+    const mainTxt=await mainRes.text();
+    if(mainTxt.startsWith('<!')) throw new Error('Main sheet is private or not found');
+    const main=parseCSV(mainTxt);
 
-    const main = parseCSV(mainTxt);
-    const sc   = parseCSV(scTxt);
+    /* Try fetching Scorecard T20 sheet — try name variants until one returns different data */
+    let sc=null;
+    let scDebug='';
+    for(let i=0;i<SC_SHEET_NAMES.length;i++){
+      SC_URL_INDEX=i;
+      try{
+        const scRes=await fetch(getScUrl());
+        if(!scRes.ok){scDebug+=`Attempt ${i+1} (${SC_SHEET_NAMES[i]}): HTTP ${scRes.status}\n`;continue;}
+        const scTxt=await scRes.text();
+        if(scTxt.startsWith('<!')) {scDebug+=`Attempt ${i+1}: returned HTML (not found)\n`;continue;}
+        const parsed=parseCSV(scTxt);
+        /* Check it's not identical to main sheet (wrong sheet returned) */
+        const firstCell=(parsed[0]||[])[0]||'';
+        const mainFirst=(main[0]||[])[0]||'';
+        scDebug+=`Attempt ${i+1} (${SC_SHEET_NAMES[i]}): first cell="${firstCell}"\n`;
+        /* Accept if different from main OR if main is also empty */
+        sc=parsed;
+        console.log('Scorecard T20 loaded with name variant:',SC_SHEET_NAMES[i]);
+        console.log('First row sample:',(sc[0]||[]).slice(0,5));
+        break;
+      }catch(e2){scDebug+=`Attempt ${i+1}: ${e2.message}\n`;}
+    }
 
-    renderScorecard(main, sc);
-    renderPredictions(main.slice(1,21).filter(r=>r.some(c=>c)), main);
+    if(!sc){throw new Error('Could not load Scorecard T20 sheet.\nDebug:\n'+scDebug);}
 
+    /* Show debug info in console for user to check */
+    console.log('=== SCORECARD SHEET DEBUG ===');
+    console.log('Total rows:',sc.length);
+    console.log('Row 33 (K33:L33):',(sc[32]||[]).slice(10,12));
+    console.log('Row 34 (K34:L34):',(sc[33]||[]).slice(10,12));
+    console.log('Row 35 (K35):',(sc[34]||[])[10]);
+    console.log('Row 2 bat cols K-P:',(sc[1]||[]).slice(10,16));
+    console.log('Row 36 live C-H:',(sc[35]||[]).slice(2,8));
+
+    renderScorecard(main,sc);
+    renderPredictions(main.slice(1,21).filter(r=>r.some(c=>c)),main);
     $('tsLbl').textContent=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
   }catch(e){
     console.error(e);
@@ -758,6 +811,16 @@ function switchTab(name,el){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
   el.classList.add('active');$('tab-'+name).classList.add('active');
+}
+
+/* ── Custom sheet name retry ── */
+function tryCustomSheetName(){
+  const input=$('sheetNameInput');
+  const name=(input?.value||'').trim();
+  if(!name)return;
+  SC_SHEET_NAMES.unshift(name);
+  SC_URL_INDEX=0;
+  loadData();
 }
 
 loadData();
