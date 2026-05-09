@@ -94,9 +94,10 @@ body{font-family:'Barlow',sans-serif;background:#f5f5f5;color:#212121;min-height
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
 .inn-score{
-  font-family:'Oswald',sans-serif;font-size:1rem;font-weight:600;
-  color:#555;white-space:nowrap;flex-shrink:0;
-  margin-left:auto;margin-right:10px; /* right-align score before + */
+  font-family:'Oswald',sans-serif;font-size:1rem;font-weight:700;
+  color:#1a237e;white-space:nowrap;flex-shrink:0;
+  margin-left:auto;margin-right:10px; /* right-align score before + button */
+  letter-spacing:.5px;
 }
 .inn-toggle{
   width:26px;height:26px;border-radius:50%;flex-shrink:0;
@@ -511,9 +512,9 @@ function renderScorecard(pred, sc){
   /* ── Innings summaries K33:M33 and K34:M34 (L or M may hold score due to merge) ── */
   const i1team  = cel(sc,32,10); /* K33 = sc[32] = sheet row33 */
   /* Score: search L33(11), M33(12), N33(13) — merged cells export to first col of merge */
-  const i1score = cel(sc,33,11)||cel(sc,33,12)||cel(sc,33,13)||cel(sc,33,14); /* L34 score */ /* L33 score */
+  const i1score = cel(sc,32,11)||cel(sc,32,12)||cel(sc,32,13)||cel(sc,32,14); /* L33 */
   const i2team  = cel(sc,33,10); /* K34 = sc[33] = sheet row34 */
-  const i2score = cel(sc,33,11)||cel(sc,33,12)||cel(sc,33,13)||cel(sc,33,14); /* L34 score */
+  const i2score = cel(sc,33,11)||cel(sc,33,12)||cel(sc,33,13)||cel(sc,33,14); /* L34 */
   console.log('K33=',i1team,'| sc[32]=',(sc[32]||[]).slice(10,15));
   console.log('K34=',i2team,'| sc[33]=',(sc[33]||[]).slice(10,15));
   console.log('K35=',cel(sc,34,10),'| sc[34]=',(sc[34]||[]).slice(10,16));
@@ -527,10 +528,14 @@ function renderScorecard(pred, sc){
     miResult.style.display='none';
   }
 
-  $('inn1-team').textContent  = i1team ||'1st Innings';
-  const s1=$('inn1-score'); s1.textContent=i1score||''; s1.style.display=i1score?'':'none';
-  $('inn2-team').textContent  = i2team ||'2nd Innings';
-  const s2=$('inn2-score'); s2.textContent=i2score||''; s2.style.display=i2score?'':'none';
+  /* Show K33+L33 merged, K34+L34 merged in the header */
+  $('inn1-team').textContent = i1team||'1st Innings';
+  const s1=$('inn1-score');
+  if(i1score){s1.textContent=i1score;s1.style.display='';}else{s1.style.display='none';}
+  $('inn2-team').textContent = i2team||'2nd Innings';
+  const s2=$('inn2-score');
+  if(i2score){s2.textContent=i2score;s2.style.display='';}else{s2.style.display='none';}
+  console.log('i1team:',i1team,'i1score:',i1score,'i2team:',i2team,'i2score:',i2score);
 
   /* ── Batting tables ── */
   /* K2:P31 → sc rows 1-30, cols 10-15 (skip row 0 which is row1, data starts row2=sc[1]) */
