@@ -10,13 +10,10 @@
   --pitch:#f5f5f5;--card:#ffffff;--card2:#f0f4f0;--border:#e0e0e0;
   --lime:#2e7d32;--gold:#1565c0;--cream:#212121;--muted:#757575;
   --white:#fff;--blue:#1976d2;--orange:#e65100;--red:#c62828;
-  --header-bg:#1a237e;--header-text:#ffffff;--accent:#1565c0;
-  --row-alt:#f9f9f9;--row-highlight:#e8f5e9;--border-strong:#bdbdbd;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Barlow',sans-serif;background:#f5f5f5;color:#212121;min-height:100vh;}
 
-/* ── HEADER ── */
 .hdr{background:#1a237e;border-bottom:3px solid #283593;padding:14px 20px 12px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.25)}
 .hdr-in{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
 .logo{display:flex;align-items:center;gap:14px}
@@ -30,7 +27,6 @@ body{font-family:'Barlow',sans-serif;background:#f5f5f5;color:#212121;min-height
 .rbtn:hover{background:rgba(255,255,255,.25);border-color:#fff}
 .rbtn:disabled{opacity:.4;cursor:not-allowed}
 
-/* ── TABS ── */
 .tabs{max-width:1100px;margin:16px auto 0;padding:0 14px;display:flex;gap:2px;border-bottom:2px solid #ddd}
 .tab{padding:10px 20px;font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#757575;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .18s;border-radius:4px 4px 0 0}
 .tab:hover{color:#1a237e;background:rgba(26,35,126,.05)}
@@ -39,176 +35,77 @@ body{font-family:'Barlow',sans-serif;background:#f5f5f5;color:#212121;min-height
 .content{max-width:1100px;margin:0 auto;padding:16px 12px 60px}
 .tab-panel{display:none}.tab-panel.active{display:block}
 
-/* ── STATUS ── */
 .status{text-align:center;padding:70px 20px;color:#757575}
 .spin{width:46px;height:46px;border:4px solid rgba(26,35,126,.15);border-top-color:#1a237e;border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 18px}
 @keyframes spin{to{transform:rotate(360deg)}}
 .status h3{font-family:'Oswald',sans-serif;font-size:1.15rem;color:#212121;margin-bottom:8px}
 .status p{font-size:.88rem;line-height:1.6}
 
-/* ── SECTION HEADER ── */
 .sh{display:flex;align-items:baseline;gap:12px;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid #e0e0e0}
 .sh-t{font-family:'Oswald',sans-serif;font-size:1.05rem;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:#1a237e}
 .sh-b{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;color:#757575;background:#f0f0f0;padding:2px 10px;border-radius:20px}
 
-/* ════════════════════════════════
-   MATCH INFO BAR (top of scorecard)
-════════════════════════════════ */
-.match-info-bar{
-  background:#fff;border:1px solid #e0e0e0;border-radius:10px;
-  padding:12px 16px;margin-bottom:12px;display:flex;flex-direction:column;gap:5px;
-  box-shadow:0 1px 4px rgba(0,0,0,.08);
-}
-.mi-fixture{
-  font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;
-  color:#1a237e;letter-spacing:.5px;text-transform:uppercase;
-}
-.mi-row{
-  font-family:'Barlow Condensed',sans-serif;font-size:.82rem;
-  color:#555;display:flex;align-items:center;gap:5px;
-}
+.match-info-bar{background:#fff;border:1px solid #e0e0e0;border-radius:10px;padding:12px 16px;margin-bottom:12px;display:flex;flex-direction:column;gap:5px;box-shadow:0 1px 4px rgba(0,0,0,.08);}
+.mi-fixture{font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;color:#1a237e;letter-spacing:.5px;text-transform:uppercase;}
+.mi-row{font-family:'Barlow Condensed',sans-serif;font-size:.82rem;color:#555;display:flex;align-items:center;gap:5px;}
 .mi-row svg{flex-shrink:0;opacity:.6}
-.mi-result{
-  font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:600;
-  color:#2e7d32;margin-top:6px;padding-top:6px;border-top:1px solid #e0e0e0;
-  letter-spacing:.3px;
-}
+.mi-result{font-family:'Barlow',sans-serif;font-size:.92rem;font-weight:600;color:#2e7d32;margin-top:4px;display:none;}
 
-/* ════════════════════════════════
-   INNINGS BOX
-════════════════════════════════ */
-.innings-box{
-  background:#fff;border:1px solid #e0e0e0;border-radius:10px;
-  overflow:hidden;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.06);
-}
-.inn-header{
-  display:flex;align-items:center;gap:10px;
-  padding:12px 16px;cursor:pointer;user-select:none;
-  background:#f8f9fa;transition:background .15s;border-bottom:1px solid #e8e8e8;
-}
+.innings-box{background:#fff;border:1px solid #e0e0e0;border-radius:10px;overflow:hidden;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.06);}
+.inn-header{display:flex;align-items:center;gap:10px;padding:12px 16px;cursor:pointer;user-select:none;background:#f8f9fa;transition:background .15s;border-bottom:1px solid #e8e8e8;}
 .inn-header:hover{background:#f0f4ff}
-.inn-num{
-  font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:700;
-  letter-spacing:1.5px;text-transform:uppercase;color:#fff;
-  flex-shrink:0;min-width:32px;background:#1a237e;border-radius:4px;
-  padding:2px 6px;text-align:center;
-}
-.inn-team{
-  font-family:'Oswald',sans-serif;font-size:1rem;font-weight:700;
-  color:#1a237e;text-transform:uppercase;letter-spacing:.5px;flex:1;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-}
-.inn-score{
-  font-family:'Oswald',sans-serif;font-size:1.05rem;font-weight:700;
-  color:#1a237e;white-space:nowrap;flex-shrink:0;margin-right:8px;
-}
-.inn-toggle{
-  width:26px;height:26px;border-radius:50%;flex-shrink:0;
-  background:#e8eaf6;border:1px solid #c5cae9;
-  display:flex;align-items:center;justify-content:center;
-  font-size:.9rem;font-weight:700;color:#3f51b5;transition:all .25s;
-}
-.innings-box.open .inn-toggle{
-  background:#1a237e;border-color:#1a237e;color:#fff;transform:rotate(45deg);
-}
+.inn-num{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#fff;flex-shrink:0;min-width:32px;background:#1a237e;border-radius:4px;padding:2px 6px;text-align:center;}
+.inn-team{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:700;color:#1a237e;text-transform:uppercase;letter-spacing:.5px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.inn-score{font-family:'Oswald',sans-serif;font-size:1.05rem;font-weight:700;color:#1a237e;white-space:nowrap;flex-shrink:0;margin-right:8px;}
+.inn-toggle{width:26px;height:26px;border-radius:50%;flex-shrink:0;background:#e8eaf6;border:1px solid #c5cae9;display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#3f51b5;transition:all .25s;}
+.innings-box.open .inn-toggle{background:#1a237e;border-color:#1a237e;color:#fff;transform:rotate(45deg);}
 .inn-body{display:none;border-top:1px solid #e0e0e0}
 .innings-box.open .inn-body{display:block}
 
-/* ── Scorecard tables ── */
 .sc-section{padding:10px 12px 8px}
-.sc-sec-title{
-  font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;
-  letter-spacing:2px;text-transform:uppercase;color:#1a237e;
-  margin-bottom:6px;padding-bottom:4px;border-bottom:2px solid #e8eaf6;
-}
+.sc-sec-title{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#1a237e;margin-bottom:6px;padding-bottom:4px;border-bottom:2px solid #e8eaf6;}
 .sc-tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:6px;border:1px solid #e8e8e8}
 .sc-tbl{width:100%;border-collapse:collapse;font-size:.82rem;background:#fff}
 .sc-tbl thead tr{background:#f5f5f5;border-bottom:2px solid #e0e0e0}
-.sc-tbl thead th{
-  padding:8px 10px;text-align:right;
-  font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;
-  letter-spacing:1px;text-transform:uppercase;color:#555;white-space:nowrap;
-}
+.sc-tbl thead th{padding:8px 10px;text-align:right;font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#555;white-space:nowrap;}
 .sc-tbl thead th:first-child{text-align:left}
 .sc-tbl tbody tr{border-bottom:1px solid #f0f0f0}
 .sc-tbl tbody tr:last-child{border-bottom:none}
 .sc-tbl tbody tr.row-total{border-top:2px solid #e0e0e0;background:#f8f9fa}
 .sc-tbl tbody tr.row-extras{background:#fafafa}
-.sc-tbl tbody tr.row-dismiss{background:#fafafa}
 .sc-tbl td{padding:6px 10px;text-align:right;white-space:nowrap;font-family:'Barlow Condensed',sans-serif}
 .sc-tbl td:first-child{text-align:left;white-space:normal}
 .td-name{color:#1565c0;font-weight:700;font-size:.84rem}
-.td-dismiss{font-size:.72rem;color:#757575;display:block;white-space:normal;font-weight:400;margin-top:1px;font-style:italic}
-.td-notout{color:#2e7d32;font-size:.72rem;display:block;margin-top:1px;font-style:italic}
 .td-num{color:#212121;font-size:.82rem}
 .td-num.bold{font-weight:700;color:#000}
 .td-total-lbl{font-family:'Barlow Condensed',sans-serif;font-weight:700;color:#212121;font-size:.84rem}
 .td-total-val{font-family:'Oswald',sans-serif;font-weight:700;color:#1a237e;font-size:.9rem}
-.td-muted{color:#9e9e9e;font-size:.75rem}
 .row-notout{background:#f1f8e9}
-/* dismiss row — italic muted text spanning full name cell */
-.sc-tbl tbody tr.dismiss-row td{
-  padding-top:1px;padding-bottom:5px;font-style:italic;
-  color:#757575;font-size:.72rem;font-family:'Barlow Condensed',sans-serif;
-  border-bottom:1px solid #f0f0f0;
-}
+.sc-tbl tbody tr.dismiss-row td{padding-top:1px;padding-bottom:5px;font-style:italic;color:#757575;font-size:.72rem;font-family:'Barlow Condensed',sans-serif;border-bottom:1px solid #f0f0f0;}
 .sc-tbl tbody tr.dismiss-row td:not(:first-child){color:transparent}
 
-/* ════════════════════════════════
-   LIVE STATS (C36:H42)
-════════════════════════════════ */
-.live-box{
-  background:#fff;border:1px solid #c8e6c9;
-  border-radius:10px;overflow:hidden;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.06);
-}
-.live-title{
-  background:#e8f5e9;border-bottom:1px solid #c8e6c9;
-  padding:7px 14px;font-family:'Barlow Condensed',sans-serif;font-size:.7rem;
-  font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#2e7d32;
-  display:flex;align-items:center;gap:6px;
-}
-.live-dot{width:7px;height:7px;border-radius:50%;background:#4caf50;
-  animation:pulse 1.2s ease-in-out infinite;flex-shrink:0}
+.live-box{background:#fff;border:1px solid #c8e6c9;border-radius:10px;overflow:hidden;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.06);}
+.live-title{background:#e8f5e9;border-bottom:1px solid #c8e6c9;padding:7px 14px;font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#2e7d32;display:flex;align-items:center;gap:6px;}
+.live-dot{width:7px;height:7px;border-radius:50%;background:#4caf50;animation:pulse 1.2s ease-in-out infinite;flex-shrink:0}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 .live-tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
 .live-tbl{width:100%;border-collapse:collapse}
-.live-tbl th{
-  padding:5px 10px;text-align:right;
-  font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:700;
-  letter-spacing:1px;text-transform:uppercase;color:#555;
-  background:#fafafa;border-bottom:1px solid #e0e0e0;
-}
+.live-tbl th{padding:5px 10px;text-align:right;font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#555;background:#fafafa;border-bottom:1px solid #e0e0e0;}
 .live-tbl th:first-child{text-align:left}
-.live-tbl td{padding:7px 10px;text-align:right;border-bottom:1px solid #f5f5f5;
-  font-family:'Barlow Condensed',sans-serif;font-size:.82rem;color:#212121}
+.live-tbl td{padding:7px 10px;text-align:right;border-bottom:1px solid #f5f5f5;font-family:'Barlow Condensed',sans-serif;font-size:.82rem;color:#212121}
 .live-tbl td:first-child{text-align:left;color:#1565c0;font-weight:600}
 .live-tbl tr:last-child td{border-bottom:none}
-.live-sec-row td{
-  background:#f5f5f5;
-  font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:700;
-  letter-spacing:2px;text-transform:uppercase;
-  padding:4px 10px;text-align:left!important;color:#757575!important;
-}
-.live-partnership td{
-  color:#e65100!important;font-style:italic;font-size:.78rem;text-align:left!important;
-  padding:5px 10px;
-}
+.live-sec-row td{background:#f5f5f5;font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;text-align:left!important;color:#757575!important;}
+.live-partnership td{color:#e65100!important;font-style:italic;font-size:.78rem;text-align:left!important;padding:5px 10px;}
 
-/* ════════════════════════════════
-   DREAM 7
-════════════════════════════════ */
 .d7-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:10px;margin-top:6px}
 .d7-card{background:#fff;border:1px solid #e0e0e0;border-radius:10px;padding:14px 16px;text-align:center;animation:fu .4s ease both;box-shadow:0 1px 4px rgba(0,0,0,.06)}
 @keyframes fu{from{transform:translateY(12px);opacity:0}to{transform:translateY(0);opacity:1}}
 .d7-nm{font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:700;text-transform:uppercase;color:#212121;letter-spacing:.4px;margin-bottom:6px;line-height:1.2}
 .d7-pt{font-family:'Oswald',sans-serif;font-size:1.8rem;font-weight:700;color:#1565c0;line-height:1}
-.d7-pt.neg{color:#c62828}
-.d7-pt.zero{color:#9e9e9e}
+.d7-pt.neg{color:#c62828}.d7-pt.zero{color:#9e9e9e}
 .d7-lb{font-size:.65rem;color:#9e9e9e;letter-spacing:.5px;text-transform:uppercase;margin-top:3px}
 
-/* ════════════════════════════════
-   PREDICTIONS
-════════════════════════════════ */
 .pred-list{display:flex;flex-direction:column;gap:8px;margin-top:6px}
 .pred-card{background:#fff;border:1px solid #e0e0e0;border-radius:10px;overflow:hidden;animation:fu .35s ease both;box-shadow:0 1px 4px rgba(0,0,0,.06)}
 .pred-summary{display:flex;align-items:center;padding:13px 16px;cursor:pointer;gap:12px;user-select:none;transition:background .15s}
@@ -286,12 +183,9 @@ body{font-family:'Barlow',sans-serif;background:#f5f5f5;color:#212121;min-height
 
 <div class="content">
 
-  <!-- ── SCORECARD TAB ── -->
   <div class="tab-panel active" id="tab-sc">
     <div id="sc-ld" class="status"><div class="spin"></div><h3>Loading Scorecard…</h3><p>Fetching live data</p></div>
     <div id="sc-main" style="display:none">
-
-      <!-- Match info bar -->
       <div class="match-info-bar">
         <div class="mi-fixture" id="mi-fixture">—</div>
         <div class="mi-row" id="mi-venue-row" style="display:none">
@@ -302,10 +196,9 @@ body{font-family:'Barlow',sans-serif;background:#f5f5f5;color:#212121;min-height
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           <span id="mi-rr">—</span>
         </div>
-        <div class="mi-result" id="mi-result" style="display:none"></div>
+        <div class="mi-result" id="mi-result"></div>
       </div>
 
-      <!-- 1st Innings -->
       <div class="innings-box" id="inn1">
         <div class="inn-header" onclick="this.closest('.innings-box').classList.toggle('open')">
           <span class="inn-num">1ST</span>
@@ -325,7 +218,6 @@ body{font-family:'Barlow',sans-serif;background:#f5f5f5;color:#212121;min-height
         </div>
       </div>
 
-      <!-- 2nd Innings -->
       <div class="innings-box" id="inn2">
         <div class="inn-header" onclick="this.closest('.innings-box').classList.toggle('open')">
           <span class="inn-num">2ND</span>
@@ -345,14 +237,10 @@ body{font-family:'Barlow',sans-serif;background:#f5f5f5;color:#212121;min-height
         </div>
       </div>
 
-      <!-- Live stats -->
       <div class="live-box" id="live-box" style="display:none">
         <div class="live-title"><div class="live-dot"></div>Live</div>
         <div class="live-tbl-wrap"><table class="live-tbl" id="live-tbl"></table></div>
       </div>
-
-
-
     </div>
     <div id="sc-err" class="status" style="display:none">
       <h3>⚠️ Could not load</h3>
@@ -360,19 +248,15 @@ body{font-family:'Barlow',sans-serif;background:#f5f5f5;color:#212121;min-height
     </div>
   </div>
 
-  <!-- ── POINTS TAB ── -->
   <div class="tab-panel" id="tab-pts">
     <div id="pts-ld" class="status"><div class="spin"></div><h3>Loading Points…</h3></div>
     <div id="pts-main" style="display:none">
       <div class="sh"><span class="sh-t">🏅 Player Points</span></div>
-      <div class="pts-tbl-wrap">
-        <table class="pts-tbl" id="pts-tbl"></table>
-      </div>
+      <div class="pts-tbl-wrap"><table class="pts-tbl" id="pts-tbl"></table></div>
     </div>
     <div id="pts-err" class="status" style="display:none"><h3>⚠️ Could not load</h3></div>
   </div>
 
-  <!-- ── PREDICTIONS TAB (UNCHANGED) ── -->
   <div class="tab-panel" id="tab-pred">
     <div id="pred-ld" class="status"><div class="spin"></div><h3>Loading Predictions…</h3></div>
     <div id="pred-main" style="display:none">
@@ -388,7 +272,6 @@ body{font-family:'Barlow',sans-serif;background:#f5f5f5;color:#212121;min-height
 const SHEET_ID='1FrLu-ket-ZUIE5UPr8BkVuuvRMWtoJ3O283RIsosarg';
 const BASE=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv`;
 
-/* ── fetch a named sheet, try variants ── */
 async function fetchSheet(names){
   for(const name of names){
     try{
@@ -396,17 +279,13 @@ async function fetchSheet(names){
       if(!r.ok) continue;
       const t=await r.text();
       if(t.startsWith('<!')) continue;
-      console.log(`✅ Loaded sheet: "${name}" — first cell:`,parseCSV(t)[0]?.[0]);
       return parseCSV(t);
-    }catch(e){ console.warn(`Sheet "${name}" error:`,e.message); }
+    }catch(e){console.warn(`Sheet "${name}" error:`,e.message);}
   }
-  /* final fallback — default sheet */
-  console.warn('Named sheet failed, using default');
   const r=await fetch(BASE);
   return parseCSV(await r.text());
 }
 
-/* ── CSV parser ── */
 function parseCSV(t){
   const rows=[];
   for(const line of t.split('\n')){
@@ -420,7 +299,6 @@ function parseCSV(t){
   return rows;
 }
 
-/* ── helpers ── */
 const $=id=>document.getElementById(id);
 const sh=id=>{const e=$(id);if(e)e.style.display='';};
 const hd=id=>{const e=$(id);if(e)e.style.display='none';};
@@ -437,219 +315,126 @@ function fmtDate(ts){
   catch{return ts;}
 }
 
-/* ════════════════════════════════════════════
-   LOAD — fetch BOTH sheets simultaneously
-   "Prediction LO" : fixture, venue, RR, dream7, predictions, points
-   "Scorecard T20" : result, innings summaries, batting, bowling, live
-════════════════════════════════════════════ */
 async function loadData(){
   const btn=$('rBtn');btn.disabled=true;btn.textContent='⟳ Loading…';
   sh('sc-ld');hd('sc-main');hd('sc-err');
   sh('pred-ld');hd('pred-main');hd('pred-err');
   sh('pts-ld');hd('pts-main');hd('pts-err');
   try{
-    /* Default sheet (no name) = first tab = "Prediction LO" — always reliable */
-    /* Scorecard T20 needs explicit name since it's not the first tab */
-    const [predTxt, sc] = await Promise.all([
+    const [pred,sc]=await Promise.all([
       fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv`).then(r=>r.text()).then(t=>parseCSV(t)),
       fetchSheet(['Scorecard T20','scorecard t20','Scorecard T 20','ScoreCard T20'])
     ]);
-    const pred = predTxt;
-
-    /* Debug */
-    console.log('=== Prediction LO ===');
-    console.log('A22:',(pred[21]||[])[0]);
-    console.log('M23:',(pred[22]||[])[12],'  I23:',(pred[22]||[])[8]);
-    console.log('Dream7 row47:',(pred[46]||[]).slice(9,11));
-    console.log('=== Scorecard T20 ===');
-    console.log('K33-L33:',(sc[31]||[]).slice(10,12));
-    console.log('K34-L34:',(sc[32]||[]).slice(10,12));
-    console.log('K35:',(sc[33]||[])[10]);
-    console.log('Bat1 K2:',(sc[0]||[]).slice(10,16));
-    console.log('Bat1 K3:',(sc[1]||[]).slice(10,16));
-    console.log('Bowl1 AB2:',(sc[0]||[]).slice(27,34));
-    console.log('Live C36:',(sc[34]||[]).slice(2,8));
-
-    renderScorecard(pred, sc);
-    renderPredictions(pred.slice(1,21).filter(r=>r.some(c=>c)), pred);
+    renderScorecard(pred,sc);
+    renderPredictions(pred.slice(1,21).filter(r=>r.some(c=>c)),pred);
     renderPoints(sc);
-
     $('tsLbl').textContent='Updated '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
   }catch(e){
     console.error(e);
-    hd('sc-ld');hd('sc-main');sh('sc-err');
-    $('sc-err-p').textContent='Error: '+e.message;
+    hd('sc-ld');hd('sc-main');sh('sc-err');$('sc-err-p').textContent='Error: '+e.message;
     hd('pred-ld');hd('pred-main');sh('pred-err');
     hd('pts-ld');hd('pts-main');sh('pts-err');
   }
   btn.disabled=false;btn.textContent='⟳ Refresh';
 }
 
-/* ════════════════════════════════════════════
-   SCORECARD RENDER
-   pred (Prediction LO):
-     A22 = pred[21][0]   → fixture
-     M23 = pred[22][12]  → venue
-     I23 = pred[22][8]   → run rate
-     J47:K53 = pred[46..52] cols 9-10 → Dream7
-
-   sc (Scorecard T20) — 0-based:
-     K33 = sc[32][10], L33 = sc[32][11] → 1st inn summary
-     K34 = sc[33][10], L34 = sc[33][11] → 2nd inn summary
-     K35 = sc[34][10]                   → result
-     K2:P31  = sc[1..30]  cols 10-15   → 1st bat  (K=10,P=15)
-     AB2:AH12= sc[1..11]  cols 27-33   → 1st bowl (AB=27,AH=33)
-     AP2:AU31= sc[1..30]  cols 41-46   → 2nd bat  (AP=41,AU=46)
-     BG2:BM12= sc[1..11]  cols 58-64   → 2nd bowl (BG=58,BM=64)
-     C36:H42 = sc[35..41] cols 2-7     → live stats
-════════════════════════════════════════════ */
-function renderScorecard(pred, sc){
-  /* ── Match info from Prediction LO ── */
+function renderScorecard(pred,sc){
   const fixture=(pred[21]||[])[0]||'';
   const venue  =(pred[22]||[])[12]||'';
   const rr     =(pred[22]||[])[8]||'';
-  const result = cel(sc,33,10);   /* K35: sc[33]=sheet row35 */
 
-  $('mi-fixture').textContent = fixture||'Match';
+  $('mi-fixture').textContent=fixture||'Match';
   if(venue){$('mi-venue').textContent=venue;sh('mi-venue-row');}else{hd('mi-venue-row');}
-  if(rr)   {$('mi-rr').textContent=rr;sh('mi-rr-row');}else{hd('mi-rr-row');}
+  if(rr){$('mi-rr').textContent=rr;sh('mi-rr-row');}else{hd('mi-rr-row');}
 
-  /* ── Innings summaries K33:M33 and K34:M34 (L or M may hold score due to merge) ── */
-  const i1team  = cel(sc,31,10); /* K33: gviz skips row1, so sc[31]=sheet row33 */
-  /* Score: search L33(11), M33(12), N33(13) — merged cells export to first col of merge */
-  const i1score = cel(sc,31,11)||cel(sc,31,12)||cel(sc,31,13)||cel(sc,31,14);
-  const i2team  = cel(sc,32,10); /* K34: sc[32]=sheet row34 */
-  const i2score = cel(sc,32,11)||cel(sc,32,12)||cel(sc,32,13)||cel(sc,32,14);
-  console.log('K33=',i1team,'| L33 raw=',(sc[31]||[]).slice(11,15));
-  console.log('K34=',i2team,'| L34 raw=',(sc[32]||[]).slice(11,15));
-  console.log('K35=',cel(sc,33,10),'| full row35=',(sc[33]||[]).slice(10,16));
-
-  /* K35 = result — show below venue in match-info-bar */
-  const miResult=$('mi-result');
-  if(result){
-    miResult.textContent=result;
-    miResult.style.display='block';
-  } else {
-    miResult.style.display='none';
+  /* Smart scan rows 29-37 for team/score pairs and result */
+  let i1team='',i1score='',i2team='',i2score='',resultTxt='';
+  const teamRows=[];
+  for(let r=29;r<=37;r++){
+    const row=sc[r]||[];
+    const k=(row[10]||'').trim();
+    const l=(row[11]||row[12]||row[13]||'').trim();
+    if(!k) continue;
+    const isScore=/\d/.test(l)&&(/\//.test(l)||/\(/.test(l));
+    if(isScore){teamRows.push({team:k,score:l});}
+    else if(k&&!l){resultTxt=k;}
   }
+  i1team =teamRows[0]?teamRows[0].team :'';
+  i1score=teamRows[0]?teamRows[0].score:'';
+  i2team =teamRows[1]?teamRows[1].team :'';
+  i2score=teamRows[1]?teamRows[1].score:'';
 
-  $('inn1-team').textContent  = i1team ||'1st Innings';
-  const s1=$('inn1-score'); s1.textContent=i1score||''; s1.style.display=i1score?'':'none';
-  $('inn2-team').textContent  = i2team ||'2nd Innings';
-  const s2=$('inn2-score'); s2.textContent=i2score||''; s2.style.display=i2score?'':'none';
+  const miResult=$('mi-result');
+  if(resultTxt){miResult.textContent=resultTxt;miResult.style.display='block';}
+  else{miResult.style.display='none';}
 
-  /* ── Batting tables ── */
-  /* K2:P31 → sc rows 1-30, cols 10-15 (skip row 0 which is row1, data starts row2=sc[1]) */
-  buildBatTable('inn1-bat', rng(sc,0,29,10,15));  /* K2:P31 sc[0]=sheet row2 */
-  /* AP2:AU31 → sc rows 1-30, cols 41-46 */
-  buildBatTable('inn2-bat', rng(sc,0,29,41,46));  /* AP2:AU31 */
+  $('inn1-team').textContent=i1team||'1st Innings';
+  const s1=$('inn1-score');s1.textContent=i1score;s1.style.display=i1score?'inline':'none';
+  $('inn2-team').textContent=i2team||'2nd Innings';
+  const s2=$('inn2-score');s2.textContent=i2score;s2.style.display=i2score?'inline':'none';
 
-  /* ── Bowling tables ── */
-  /* AB2:AH12 → sc rows 1-11, cols 27-33 */
-  buildBowlTable('inn1-bowl', rng(sc,0,10,27,33));  /* AB2:AH12 */
-  /* BG2:BM12 → sc rows 1-11, cols 58-64 */
-  buildBowlTable('inn2-bowl', rng(sc,0,10,58,64));  /* BG2:BM12 */
-
-  /* ── Live stats C36:H42 → sc rows 35-41, cols 2-7 ── */
-  buildLive(rng(sc,34,40,2,7));  /* C36:H42 sc[34]=sheet row36 */
-
-
+  buildBatTable('inn1-bat',rng(sc,0,29,10,15));
+  buildBatTable('inn2-bat',rng(sc,0,29,41,46));
+  buildBowlTable('inn1-bowl',rng(sc,0,10,27,33));
+  buildBowlTable('inn2-bowl',rng(sc,0,10,58,64));
+  buildLive(rng(sc,34,40,2,7));
 
   hd('sc-ld');sh('sc-main');hd('sc-err');
 }
 
-/* ── Batting table builder ──
-   Reference format:
-   - Each batter: row1 = name + R B 4s 6s SR, row2 = dismissal/not-out (italic, muted)
-   - Extras: name cell + value + "(B:x, LB:x, NB:x, W:x)" inline in next col
-   - TOTAL: "TOTAL" + (ovs, RR) | runs/wkts | empty | fours | sixes
-*/
 const BAT_HDR=['Batter','R','B','4s','6s','SR'];
-function buildBatTable(id, data){
-  const tbl=$(id); tbl.innerHTML='';
+function buildBatTable(id,data){
+  const tbl=$(id);tbl.innerHTML='';
   const hasData=data.some(r=>r.some(c=>c));
-  if(!hasData){
-    tbl.innerHTML='<tbody><tr><td colspan="6" style="color:#9e9e9e;padding:14px;text-align:center;font-family:Barlow Condensed,sans-serif">No data yet</td></tr></tbody>';
-    return;
-  }
-
-  /* thead */
+  if(!hasData){tbl.innerHTML='<tbody><tr><td colspan="6" style="color:#9e9e9e;padding:14px;text-align:center;font-family:Barlow Condensed,sans-serif">No data yet</td></tr></tbody>';return;}
   const thead=document.createElement('thead');
   const hr=document.createElement('tr');
   BAT_HDR.forEach(h=>{const th=document.createElement('th');th.textContent=h;hr.appendChild(th);});
   thead.appendChild(hr);tbl.appendChild(thead);
-
-  /* tbody — process rows: collect player rows with their following dismissal row */
   const tbody=document.createElement('tbody');
-
-  /* We'll parse data into logical entries first */
   const entries=[];
   for(let i=0;i<data.length;i++){
     const cells=data[i].map(c=>(c||'').trim());
     if(!cells.some(c=>c)) continue;
-
     const name=cells[0]||'';
     const r_val=cells[1]||'';
     const isNumericR=r_val!==''&&!isNaN(parseFloat(r_val));
     const isExtras=/^extras?$/i.test(name);
     const isTotal=/^total$/i.test(name);
-
     if(isExtras){
-      entries.push({type:'extras', cells});
-      /* next row may have breakdown */
+      entries.push({type:'extras',cells});
       const nxt=data[i+1]?data[i+1].map(c=>(c||'').trim()):[];
-      const breakdownTxt=nxt[0]||'';
-      if(breakdownTxt&&/B:/i.test(breakdownTxt)){
-        entries[entries.length-1].breakdown=breakdownTxt;
-        i++; /* consume */
-      }
+      if(nxt[0]&&/B:/i.test(nxt[0])){entries[entries.length-1].breakdown=nxt[0];i++;}
       continue;
     }
     if(isTotal){
-      entries.push({type:'total', cells});
-      /* consume up to 3 following rows for overs/rr, fours, sixes */
-      let extras={overs:'',fours:'',sixes:''};
+      entries.push({type:'total',cells});
+      let ex={overs:'',fours:'',sixes:''};
       for(let k=1;k<=3;k++){
         const nr=data[i+k]?data[i+k].map(c=>(c||'').trim()):[];
         if(!nr.some(c=>c)) break;
-        const v0=nr[0]||'';
-        /* overs row looks like "14.2 Ov, RR: 10.26" or just a number */
-        if(k===1) extras.overs=v0||nr.join(' ').trim();
-        else if(k===2) extras.fours=v0;
-        else if(k===3) extras.sixes=v0;
+        if(k===1)ex.overs=nr[0]||nr.join(' ').trim();
+        else if(k===2)ex.fours=nr[0];
+        else if(k===3)ex.sixes=nr[0];
       }
-      entries[entries.length-1].extras=extras;
-      i+=3;
-      continue;
+      entries[entries.length-1].extras=ex;i+=3;continue;
     }
-
-    /* Dismissal/not-out row: no numeric R, looks like dismissal text */
     const isDismissal=!isNumericR&&name&&
       (name.match(/^(c |b |lbw|run\s*out|st |not out|did not|caught|absent)/i)||
        name.includes(' b ')||name.includes('caught')||
-       name.toLowerCase().startsWith('runout')||
-       name.toLowerCase().includes('run out'));
-
+       name.toLowerCase().startsWith('runout')||name.toLowerCase().includes('run out'));
     if(isDismissal){
-      /* attach to last player entry */
       const last=entries.filter(e=>e.type==='player').slice(-1)[0];
-      if(last) last.dismissal=name;
+      if(last)last.dismissal=name;
       continue;
     }
-
-    if(name&&(isNumericR||r_val==='')){
-      entries.push({type:'player', cells, dismissal:''});
-    }
+    if(name&&(isNumericR||r_val==='')){entries.push({type:'player',cells,dismissal:''});}
   }
-
-  /* Render entries */
   for(const e of entries){
     if(e.type==='player'){
-      const notOut=/not out/i.test(e.dismissal)||!e.dismissal;
-      /* Row 1: name + stats */
       const tr=document.createElement('tr');
       tr.classList.add('player-row');
-      if(/not out/i.test(e.dismissal)) tr.classList.add('row-notout');
+      if(/not out/i.test(e.dismissal))tr.classList.add('row-notout');
       e.cells.forEach((c,ci)=>{
         const td=document.createElement('td');
         if(ci===0){td.className='td-name';td.textContent=c;}
@@ -657,70 +442,29 @@ function buildBatTable(id, data){
         tr.appendChild(td);
       });
       tbody.appendChild(tr);
-      /* Row 2: dismissal/not-out */
-      const tr2=document.createElement('tr');
-      tr2.className='dismiss-row';
-      const td2=document.createElement('td');
-      td2.setAttribute('colspan','6');
-      td2.style.paddingTop='1px';
-      td2.style.paddingBottom='6px';
-      td2.style.fontStyle='italic';
-      td2.style.fontSize='.72rem';
-      td2.style.color= /not out/i.test(e.dismissal)?'#2e7d32':'#757575';
-      td2.style.fontFamily='Barlow Condensed,sans-serif';
+      const tr2=document.createElement('tr');tr2.className='dismiss-row';
+      const td2=document.createElement('td');td2.setAttribute('colspan','6');
+      td2.style.cssText='padding-top:1px;padding-bottom:6px;font-style:italic;font-size:.72rem;font-family:Barlow Condensed,sans-serif;';
+      td2.style.color=/not out/i.test(e.dismissal)?'#2e7d32':'#757575';
       td2.textContent=e.dismissal||'';
-      tr2.appendChild(td2);
-      tbody.appendChild(tr2);
-
+      tr2.appendChild(td2);tbody.appendChild(tr2);
     } else if(e.type==='extras'){
-      const tr=document.createElement('tr');
-      tr.className='row-extras';
-      /* Cell 0: "Extras" label */
-      const td0=document.createElement('td');
-      td0.className='td-total-lbl';td0.textContent='Extras';
-      tr.appendChild(td0);
-      /* Cell 1: count value */
-      const td1=document.createElement('td');
-      td1.className='td-num bold';td1.textContent=e.cells[1]||'';
-      tr.appendChild(td1);
-      /* Cell 2: breakdown text spanning rest */
-      const td2=document.createElement('td');
-      td2.setAttribute('colspan','4');
-      td2.style.textAlign='left';
-      td2.style.color='#757575';
-      td2.style.fontSize='.75rem';
-      td2.style.fontFamily='Barlow Condensed,sans-serif';
-      td2.textContent=e.breakdown||e.cells[2]||'';
-      tr.appendChild(td2);
-      tbody.appendChild(tr);
-
+      const tr=document.createElement('tr');tr.className='row-extras';
+      const td0=document.createElement('td');td0.className='td-total-lbl';td0.textContent='Extras';tr.appendChild(td0);
+      const td1=document.createElement('td');td1.className='td-num bold';td1.textContent=e.cells[1]||'';tr.appendChild(td1);
+      const td2=document.createElement('td');td2.setAttribute('colspan','4');
+      td2.style.cssText='text-align:left;color:#757575;font-size:.75rem;font-family:Barlow Condensed,sans-serif;';
+      td2.textContent=e.breakdown||e.cells[2]||'';tr.appendChild(td2);tbody.appendChild(tr);
     } else if(e.type==='total'){
-      const tr=document.createElement('tr');
-      tr.className='row-total';
-      /* Col 0: "TOTAL" + (overs, RR) */
-      const td0=document.createElement('td');
-      td0.className='td-total-lbl';
+      const tr=document.createElement('tr');tr.className='row-total';
       const overs=e.extras?e.extras.overs:'';
+      const td0=document.createElement('td');td0.className='td-total-lbl';
       td0.innerHTML=`<span style="font-weight:700">TOTAL</span>${overs?`<span style="font-size:.72rem;color:#757575;font-weight:400;margin-left:6px">${esc(overs)}</span>`:''}`;
       tr.appendChild(td0);
-      /* Col 1 (R): runs/wkts */
-      const td1=document.createElement('td');
-      td1.className='td-total-val';
-      td1.textContent=e.cells[1]||'';
-      tr.appendChild(td1);
-      /* Col 2 (B): empty */
+      const td1=document.createElement('td');td1.className='td-total-val';td1.textContent=e.cells[1]||'';tr.appendChild(td1);
       const td2=document.createElement('td');td2.textContent='';tr.appendChild(td2);
-      /* Col 3 (4s): total fours */
-      const td3=document.createElement('td');
-      td3.className='td-num bold';
-      td3.textContent=e.extras?e.extras.fours:(e.cells[3]||'');
-      tr.appendChild(td3);
-      /* Col 4 (6s): total sixes */
-      const td4=document.createElement('td');
-      td4.className='td-num bold';
-      td4.textContent=e.extras?e.extras.sixes:(e.cells[4]||'');
-      tr.appendChild(td4);
-      /* Col 5 (SR): empty */
+      const td3=document.createElement('td');td3.className='td-num bold';td3.textContent=e.extras?e.extras.fours:(e.cells[3]||'');tr.appendChild(td3);
+      const td4=document.createElement('td');td4.className='td-num bold';td4.textContent=e.extras?e.extras.sixes:(e.cells[4]||'');tr.appendChild(td4);
       const td5=document.createElement('td');td5.textContent='';tr.appendChild(td5);
       tbody.appendChild(tr);
     }
@@ -728,40 +472,24 @@ function buildBatTable(id, data){
   tbl.appendChild(tbody);
 }
 
-/* ── Bowling table builder ──
-   Headers hardcoded: Bowler | O | M | R | W | ER | EXT
-*/
 const BOWL_HDR=['Bowler','O','M','R','W','ER','EXT'];
-function buildBowlTable(id, data){
-  const tbl=$(id); tbl.innerHTML='';
+function buildBowlTable(id,data){
+  const tbl=$(id);tbl.innerHTML='';
   const hasData=data.some(r=>r.some(c=>c));
-  if(!hasData){
-    tbl.innerHTML='<tbody><tr><td colspan="7" style="color:#9e9e9e;padding:14px;text-align:center;font-family:Barlow Condensed,sans-serif">No data yet</td></tr></tbody>';
-    return;
-  }
-
+  if(!hasData){tbl.innerHTML='<tbody><tr><td colspan="7" style="color:#9e9e9e;padding:14px;text-align:center;font-family:Barlow Condensed,sans-serif">No data yet</td></tr></tbody>';return;}
   const thead=document.createElement('thead');
   const hr=document.createElement('tr');
   BOWL_HDR.forEach(h=>{const th=document.createElement('th');th.textContent=h;hr.appendChild(th);});
   thead.appendChild(hr);tbl.appendChild(thead);
-
   const tbody=document.createElement('tbody');
   for(const row of data){
     const cells=row.map(c=>(c||'').trim());
-    /* Skip if no name or looks like a header row */
-    if(!cells[0]||/^bowler$/i.test(cells[0])) continue;
-    if(!cells.some(c=>c)) continue;
-
+    if(!cells[0]||/^bowler$/i.test(cells[0])||!cells.some(c=>c)) continue;
     const tr=document.createElement('tr');
     cells.forEach((c,ci)=>{
       const td=document.createElement('td');
       if(ci===0){td.className='td-name';td.textContent=c;}
-      else{
-        td.className='td-num';
-        /* Highlight wickets col (index 4) */
-        if(ci===4&&parseFloat(c)>0) td.style.color='#1a237e';
-        td.textContent=c;
-      }
+      else{td.className='td-num';if(ci===4&&parseFloat(c)>0)td.style.color='#1a237e';td.textContent=c;}
       tr.appendChild(td);
     });
     tbody.appendChild(tr);
@@ -769,139 +497,68 @@ function buildBowlTable(id, data){
   tbl.appendChild(tbody);
 }
 
-/* ── Live stats (C36:H42) ──
-   Detects "Batters"/"Bowlers" section headers,
-   "Partnership" rows, and player stat rows.
-*/
 function buildLive(data){
-  const box=$('live-box'), tbl=$('live-tbl');
-  tbl.innerHTML='';
+  const box=$('live-box'),tbl=$('live-tbl');tbl.innerHTML='';
   if(!data.some(r=>r.some(c=>c))){hd('live-box');return;}
-
-  let html='';
-  let batHdrDone=false, bowlHdrDone=false;
-  let curSection='';
-
+  let html='';let batHdrDone=false,bowlHdrDone=false;
   for(const row of data){
     const cells=row.map(c=>(c||'').trim());
     if(!cells.some(c=>c)) continue;
     const c0=cells[0];
-
     if(/^batters?$/i.test(c0)){
-      curSection='bat';
       html+=`<tr class="live-sec-row"><td colspan="6">🏏 ${esc(c0)}</td></tr>`;
-      if(!batHdrDone){
-        /* Header row for batters: blank, R, B, 4s, 6s, SR */
-        html+=`<tr><th>Batter</th><th>R</th><th>B</th><th>4s</th><th>6s</th><th>SR</th></tr>`;
-        batHdrDone=true;
-      }
+      if(!batHdrDone){html+=`<tr><th>Batter</th><th>R</th><th>B</th><th>4s</th><th>6s</th><th>SR</th></tr>`;batHdrDone=true;}
       continue;
     }
     if(/^bowlers?$/i.test(c0)){
-      curSection='bowl';
       html+=`<tr class="live-sec-row"><td colspan="6">⚾ ${esc(c0)}</td></tr>`;
-      if(!bowlHdrDone){
-        html+=`<tr><th>Bowler</th><th>O</th><th>M</th><th>R</th><th>W</th><th>ECO</th></tr>`;
-        bowlHdrDone=true;
-      }
+      if(!bowlHdrDone){html+=`<tr><th>Bowler</th><th>O</th><th>M</th><th>R</th><th>W</th><th>ECO</th></tr>`;bowlHdrDone=true;}
       continue;
     }
-    if(/^partner/i.test(c0)){
-      const val=cells.filter(c=>c).join('  ');
-      html+=`<tr class="live-partnership"><td colspan="6">${esc(val)}</td></tr>`;
-      continue;
-    }
-
-    /* Player row */
-    html+=`<tr>`;
-    cells.forEach((c,i)=>{
-      html+=`<td>${esc(c)}</td>`;
-    });
-    html+=`</tr>`;
+    if(/^partner/i.test(c0)){html+=`<tr class="live-partnership"><td colspan="6">${esc(cells.filter(c=>c).join('  '))}</td></tr>`;continue;}
+    html+=`<tr>${cells.map(c=>`<td>${esc(c)}</td>`).join('')}</tr>`;
   }
-
-  tbl.innerHTML=`<tbody>${html}</tbody>`;
-  sh('live-box');
+  tbl.innerHTML=`<tbody>${html}</tbody>`;sh('live-box');
 }
 
-/* ════════════════════════════════════════════
-   PREDICTIONS — 100% UNCHANGED from original
-   Uses "Prediction LO" data (pred param)
-════════════════════════════════════════════ */
 const FIELDS=[
-  {col:2, lbl:'Winner',         cls:'winner'},
-  {col:3, lbl:'1st Inn. Score', cls:''},
-  {col:4, lbl:'2nd Inn. Score', cls:''},
-  {col:5, lbl:'Player 1',       cls:''},
-  {col:6, lbl:'Player 2',       cls:''},
-  {col:7, lbl:'Player 3',       cls:''},
-  {col:8, lbl:'Player 4',       cls:''},
-  {col:9, lbl:'Player 5',       cls:''},
-  {col:10,lbl:'Captain ★ 2×',   cls:'captain'},
-  {col:11,lbl:'V.Captain 1.5×', cls:'vc'},
+  {col:2,lbl:'Winner',cls:'winner'},{col:3,lbl:'1st Inn. Score',cls:''},
+  {col:4,lbl:'2nd Inn. Score',cls:''},{col:5,lbl:'Player 1',cls:''},
+  {col:6,lbl:'Player 2',cls:''},{col:7,lbl:'Player 3',cls:''},
+  {col:8,lbl:'Player 4',cls:''},{col:9,lbl:'Player 5',cls:''},
+  {col:10,lbl:'Captain ★ 2×',cls:'captain'},{col:11,lbl:'V.Captain 1.5×',cls:'vc'},
 ];
 const ppCls=v=>v<=0?'z':v>=50?'h':'';
 
-function renderPredictions(predRows, all){
+function renderPredictions(predRows,all){
   const entries=predRows.map((pred,ri)=>{
     const ptsRow=all[ri+1+22]||[];
-    const name=(pred[1]||'').trim();
-    if(!name)return null;
+    const name=(pred[1]||'').trim();if(!name)return null;
     const totalPts=FIELDS.reduce((a,f)=>a+n0(ptsRow[f.col]),0)+n0(ptsRow[12]);
     return{pred,ptsRow,name,totalPts};
   }).filter(Boolean).sort((a,b)=>b.totalPts-a.totalPts);
-
   const medals=['🥇','🥈','🥉'];
   const list=$('pred-list');list.innerHTML='';
-
   entries.forEach((e,i)=>{
-    const rank=i+1;
-    const rc=rank<=3?'r'+rank:'';
-    const {pred,ptsRow,name,totalPts}=e;
-
+    const rank=i+1;const rc=rank<=3?'r'+rank:'';
+    const{pred,ptsRow,name,totalPts}=e;
     let det=FIELDS.map(f=>{
-      const val=(pred[f.col]||'').trim();
-      const pts=n0(ptsRow[f.col]);
-      return `<div class="pred-row">
-        <span class="pred-lbl">${f.lbl}</span>
-        ${val?`<span class="pred-val ${f.cls}">${esc(val)}</span>`:`<span class="pred-val empty">—</span>`}
-        <span class="pp ${ppCls(pts)}">${fmt(pts)} pts</span>
-      </div>`;
+      const val=(pred[f.col]||'').trim();const pts=n0(ptsRow[f.col]);
+      return`<div class="pred-row"><span class="pred-lbl">${f.lbl}</span>${val?`<span class="pred-val ${f.cls}">${esc(val)}</span>`:`<span class="pred-val empty">—</span>`}<span class="pp ${ppCls(pts)}">${fmt(pts)} pts</span></div>`;
     }).join('');
-
-    const eQ=(pred[12]||'').trim(),eA=(pred[13]||'').trim();
-    const ePts=n0(ptsRow[12]);
-    if(eQ||eA){
-      det+=`<div class="pred-row">
-        <span class="pred-lbl">Extra Pred.</span>
-        <span class="pred-val extra">${esc(eQ+(eA?' → '+eA:''))}</span>
-        <span class="pp ${ppCls(ePts)}">${fmt(ePts)} pts</span>
-      </div>`;
-    }
-
+    const eQ=(pred[12]||'').trim(),eA=(pred[13]||'').trim(),ePts=n0(ptsRow[12]);
+    if(eQ||eA)det+=`<div class="pred-row"><span class="pred-lbl">Extra Pred.</span><span class="pred-val extra">${esc(eQ+(eA?' → '+eA:''))}</span><span class="pp ${ppCls(ePts)}">${fmt(ePts)} pts</span></div>`;
     const isFirst=rank===1;
-    const card=document.createElement('div');
-    card.className='pred-card';card.style.animationDelay=(i*.04)+'s';
-    card.innerHTML=`
-      <div class="pred-summary" onclick="toggleCard(this.closest('.pred-card'))">
-        <div class="pred-rank ${rc}">${rank<=3?medals[rank-1]:rank}</div>
-        <div class="pred-avt ${isFirst?'r1-avt':''}">
-          ${esc(initials(name))}
-        </div>
-        <div class="pred-nm-wrap">
-          <div class="pred-nm">${esc(name)}</div>
-          <div class="pred-ts-sm">${fmtDate(pred[0])}</div>
-        </div>
-        <div>
-          <div class="pred-tot">${fmt(totalPts)}</div>
-          <div class="pred-tot-lbl">pts</div>
-        </div>
-        <div class="expand-btn">+</div>
-      </div>
-      <div class="pred-details">${det}</div>`;
+    const card=document.createElement('div');card.className='pred-card';card.style.animationDelay=(i*.04)+'s';
+    card.innerHTML=`<div class="pred-summary" onclick="toggleCard(this.closest('.pred-card'))">
+      <div class="pred-rank ${rc}">${rank<=3?medals[rank-1]:rank}</div>
+      <div class="pred-avt ${isFirst?'r1-avt':''}">${esc(initials(name))}</div>
+      <div class="pred-nm-wrap"><div class="pred-nm">${esc(name)}</div><div class="pred-ts-sm">${fmtDate(pred[0])}</div></div>
+      <div><div class="pred-tot">${fmt(totalPts)}</div><div class="pred-tot-lbl">pts</div></div>
+      <div class="expand-btn">+</div>
+    </div><div class="pred-details">${det}</div>`;
     list.appendChild(card);
   });
-
   $('pred-cnt').textContent=entries.length+' players';
   hd('pred-ld');sh('pred-main');hd('pred-err');
 }
@@ -909,44 +566,44 @@ function renderPredictions(predRows, all){
 function toggleCard(card){card.classList.toggle('open');}
 
 /* ════════════════════════════════════════════
-   POINTS TABLE — Scorecard T20 C3:H35
-   Headers: Player Name, Points, Batting, Bowling, Fielding, Sel. by
-   C=col2, D=col3, E=col4, F=col5, G=col6, H=col7
-   Row 3 (index 2) = headers, rows 4-35 (index 3-34) = data
+   POINTS TABLE — Scorecard T20 C:H columns
+   ─────────────────────────────────────────
+   sc[0] = sheet row 1 → C1 = match title   ← SKIP (was the bug)
+   sc[1] = sheet row 2 → C2:H2 = headers    ← headers come from here
+   sc[2] = sheet row 3 → first data row      ← data starts here
+   sc[2..34] = rows 3-35                     ← data range
 ════════════════════════════════════════════ */
 function renderPoints(sc){
-  const tbl=$('pts-tbl'); tbl.innerHTML='';
-  /* C2:H2 = sc[1] cols 2-7 = headers */
-  const rawHdrs=(sc[0]||[]).slice(2,8).map(h=>(h||'').trim()); /* C2:H2 = sc[0] */
+  const tbl=$('pts-tbl');tbl.innerHTML='';
+
+  /* Row 2 = sc[1] = headers (NOT sc[0] which is the match title in C1) */
+  const rawHdrs=(sc[1]||[]).slice(2,8).map(h=>(h||'').trim());
   const hdrs=rawHdrs.some(h=>h)?rawHdrs:['Player Name','Points','Batting','Bowling','Fielding','Sel. by'];
-  /* C3:H35 = sc[2..34] cols 2-7 = data */
-  const dataRows=sc.slice(1,34).filter(r=>r.slice(2,8).some(c=>c)); /* C3:H35 = sc[1..33] */
-  console.log('Points headers from C2:H2 =',hdrs);
-  console.log('Points data rows:',dataRows.length);
+
+  /* Data starts at row 3 = sc[2], ends at row 35 = sc[34] */
+  const dataRows=sc.slice(2,35).filter(r=>r.slice(2,8).some(c=>c));
 
   if(!dataRows.length){
     tbl.innerHTML='<tbody><tr><td colspan="6" style="color:#9e9e9e;padding:16px;text-align:center">No points data yet</td></tr></tbody>';
     hd('pts-ld');sh('pts-main');hd('pts-err');return;
   }
 
-  /* thead */
   const thead=document.createElement('thead');
   const hr=document.createElement('tr');
-  const finalHdrs=hdrs.length&&hdrs.some(h=>h)?hdrs:['Player Name','Points','Batting','Bowling','Fielding','Sel. by'];
-  finalHdrs.forEach(h=>{const th=document.createElement('th');th.textContent=h;hr.appendChild(th);});
+  hdrs.forEach(h=>{const th=document.createElement('th');th.textContent=h;hr.appendChild(th);});
   thead.appendChild(hr);tbl.appendChild(thead);
 
-  /* tbody — sorted by Points (col index 1) desc */
-  const sorted=[...dataRows].sort((a,b)=>n0(b[3])-n0(a[3]));  /* col D = sheet index 3 = Points */
+  /* Sort descending by Points = column D = full-row index 3 */
+  const sorted=[...dataRows].sort((a,b)=>n0(b[3])-n0(a[3]));
   const tbody=document.createElement('tbody');
   sorted.forEach(row=>{
     const cells=row.slice(2,8).map(c=>(c||'').trim());
-    if(!cells[0])return;  /* skip empty name rows */
+    if(!cells[0])return;
     const tr=document.createElement('tr');
     cells.forEach((c,ci)=>{
       const td=document.createElement('td');
-      if(ci===5){td.className='pts-sel';td.textContent=c;}
-      else{td.textContent=c;}
+      if(ci===5){td.className='pts-sel';}
+      td.textContent=c;
       tr.appendChild(td);
     });
     tbody.appendChild(tr);
@@ -959,8 +616,7 @@ function renderPoints(sc){
 function switchTab(name,el){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
-  el.classList.add('active');
-  $('tab-'+name).classList.add('active');
+  el.classList.add('active');$('tab-'+name).classList.add('active');
 }
 
 loadData();
