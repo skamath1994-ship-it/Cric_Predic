@@ -412,10 +412,13 @@ async function loadData(){
   sh('sc-ld');hd('sc-main');hd('sc-err');
   sh('pred-ld');hd('pred-main');hd('pred-err');
   try{
-    const [pred, sc] = await Promise.all([
-      fetchSheet(['Prediction LO','prediction lo','Prediction Lo','PredictionLO']),
+    /* Default sheet (no name) = first tab = "Prediction LO" — always reliable */
+    /* Scorecard T20 needs explicit name since it's not the first tab */
+    const [predTxt, sc] = await Promise.all([
+      fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv`).then(r=>r.text()).then(t=>parseCSV(t)),
       fetchSheet(['Scorecard T20','scorecard t20','Scorecard T 20','ScoreCard T20'])
     ]);
+    const pred = predTxt;
 
     /* Debug */
     console.log('=== Prediction LO ===');
