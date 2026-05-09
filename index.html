@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>🏏 MCL</title>
+<title>🏏 Cricket Prediction League</title>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
 :root{
@@ -508,21 +508,21 @@ function renderScorecard(pred, sc){
   const fixture=(pred[21]||[])[0]||'';
   const venue  =(pred[22]||[])[12]||'';
   const rr     =(pred[22]||[])[8]||'';
-  const result = cel(sc,33,10);   /* K35: sc[33]=sheet row35 */
+  const result = cel(sc,34,10);   /* K35 = sc[34] = sheet row35 */
 
   $('mi-fixture').textContent = fixture||'Match';
   if(venue){$('mi-venue').textContent=venue;sh('mi-venue-row');}else{hd('mi-venue-row');}
   if(rr)   {$('mi-rr').textContent=rr;sh('mi-rr-row');}else{hd('mi-rr-row');}
 
   /* ── Innings summaries K33:M33 and K34:M34 (L or M may hold score due to merge) ── */
-  const i1team  = cel(sc,31,10); /* K33: gviz skips row1, so sc[31]=sheet row33 */
+  const i1team  = cel(sc,32,10); /* K33 = sc[32] = sheet row33 */
   /* Score: search L33(11), M33(12), N33(13) — merged cells export to first col of merge */
-  const i1score = cel(sc,31,11)||cel(sc,31,12)||cel(sc,31,13)||cel(sc,31,14);
-  const i2team  = cel(sc,32,10); /* K34: sc[32]=sheet row34 */
-  const i2score = cel(sc,32,11)||cel(sc,32,12)||cel(sc,32,13)||cel(sc,32,14);
-  console.log('K33=',i1team,'| L33 raw=',(sc[31]||[]).slice(11,15));
-  console.log('K34=',i2team,'| L34 raw=',(sc[32]||[]).slice(11,15));
-  console.log('K35=',cel(sc,33,10),'| full row35=',(sc[33]||[]).slice(10,16));
+  const i1score = cel(sc,33,11)||cel(sc,33,12)||cel(sc,33,13)||cel(sc,33,14); /* L34 score */ /* L33 score */
+  const i2team  = cel(sc,33,10); /* K34 = sc[33] = sheet row34 */
+  const i2score = cel(sc,33,11)||cel(sc,33,12)||cel(sc,33,13)||cel(sc,33,14); /* L34 score */
+  console.log('K33=',i1team,'| sc[32]=',(sc[32]||[]).slice(10,15));
+  console.log('K34=',i2team,'| sc[33]=',(sc[33]||[]).slice(10,15));
+  console.log('K35=',cel(sc,34,10),'| sc[34]=',(sc[34]||[]).slice(10,16));
 
   /* K35 = result — show below venue in match-info-bar */
   const miResult=$('mi-result');
@@ -540,18 +540,18 @@ function renderScorecard(pred, sc){
 
   /* ── Batting tables ── */
   /* K2:P31 → sc rows 1-30, cols 10-15 (skip row 0 which is row1, data starts row2=sc[1]) */
-  buildBatTable('inn1-bat', rng(sc,0,29,10,15));  /* K2:P31 sc[0]=sheet row2 */
+  buildBatTable('inn1-bat', rng(sc,1,30,10,15));  /* K2:P31 sc[1]=sheet row2 */
   /* AP2:AU31 → sc rows 1-30, cols 41-46 */
-  buildBatTable('inn2-bat', rng(sc,0,29,41,46));  /* AP2:AU31 */
+  buildBatTable('inn2-bat', rng(sc,1,30,41,46));  /* AP2:AU31 sc[1]=sheet row2 */
 
   /* ── Bowling tables ── */
   /* AB2:AH12 → sc rows 1-11, cols 27-33 */
-  buildBowlTable('inn1-bowl', rng(sc,0,10,27,33));  /* AB2:AH12 */
+  buildBowlTable('inn1-bowl', rng(sc,1,11,27,33));  /* AB2:AH12 sc[1]=sheet row2 */
   /* BG2:BM12 → sc rows 1-11, cols 58-64 */
-  buildBowlTable('inn2-bowl', rng(sc,0,10,58,64));  /* BG2:BM12 */
+  buildBowlTable('inn2-bowl', rng(sc,1,11,58,64));  /* BG2:BM12 sc[1]=sheet row2 */
 
   /* ── Live stats C36:H42 → sc rows 35-41, cols 2-7 ── */
-  buildLive(rng(sc,34,40,2,7));  /* C36:H42 sc[34]=sheet row36 */
+  buildLive(rng(sc,35,41,2,7));  /* C36:H42 sc[35]=sheet row36 */
 
 
 
@@ -625,10 +625,7 @@ function buildBatTable(id, data){
 
     /* Dismissal/not-out row: no numeric R, looks like dismissal text */
     const isDismissal=!isNumericR&&name&&
-      (name.match(/^(c |b |lbw|run\s*out|st |not out|did not|caught|absent)/i)||
-       name.includes(' b ')||name.includes('caught')||
-       name.toLowerCase().startsWith('runout')||
-       name.toLowerCase().includes('run out'));
+      name.match(/^(c |b |lbw|run.?out|st |not out|did not|caught|absent|runout)/i);
 
     if(isDismissal){
       /* attach to last player entry */
@@ -807,8 +804,10 @@ function buildLive(data){
       continue;
     }
     if(/^partner/i.test(c0)){
-      const val=cells.filter(c=>c).join('  ');
-      html+=`<tr class="live-partnership"><td colspan="6">${esc(val)}</td></tr>`;
+      /* C39=Partnership label, D39=details (next col) — combine them */
+      const detail = cells.slice(1).find(v=>v) || '';
+      const display = detail ? 'Partnership: ' + detail : c0;
+      html+=`<tr class="live-partnership"><td colspan="6">${esc(display)}</td></tr>`;
       continue;
     }
 
@@ -917,10 +916,10 @@ function toggleCard(card){card.classList.toggle('open');}
 function renderPoints(sc){
   const tbl=$('pts-tbl'); tbl.innerHTML='';
   /* C2:H2 = sc[1] cols 2-7 = headers */
-  const rawHdrs=(sc[0]||[]).slice(2,8).map(h=>(h||'').trim()); /* C2:H2 = sc[0] */
-  const hdrs=rawHdrs.some(h=>h)?rawHdrs:['Player Name','Points','Batting','Bowling','Fielding','Sel. by'];
+  /* Headers hardcoded — sheet C2:H2 often contains merged match title */
+  const hdrs=['Player Name','Points','Batting','Bowling','Fielding','Sel. by'];
   /* C3:H35 = sc[2..34] cols 2-7 = data */
-  const dataRows=sc.slice(1,34).filter(r=>r.slice(2,8).some(c=>c)); /* C3:H35 = sc[1..33] */
+  const dataRows=sc.slice(2,35).filter(r=>r.slice(2,8).some(c=>c)); /* C3:H35 = sc[2..34] */
   console.log('Points headers from C2:H2 =',hdrs);
   console.log('Points data rows:',dataRows.length);
 
