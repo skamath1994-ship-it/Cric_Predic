@@ -516,9 +516,13 @@ function renderScorecard(pred, sc){
 
   /* ── Innings summaries K33:M33 and K34:M34 (L or M may hold score due to merge) ── */
   const i1team  = cel(sc,32,10); /* K33 */
-  const i1score = cel(sc,32,11)||cel(sc,32,12); /* L33 or M33 */
+  /* Score: search L33(11), M33(12), N33(13) — merged cells export to first col of merge */
+  const i1score = cel(sc,32,11)||cel(sc,32,12)||cel(sc,32,13)||cel(sc,32,14);
   const i2team  = cel(sc,33,10); /* K34 */
-  const i2score = cel(sc,33,11)||cel(sc,33,12); /* L34 or M34 */
+  const i2score = cel(sc,33,11)||cel(sc,33,12)||cel(sc,33,13)||cel(sc,33,14);
+  console.log('K33=',i1team,'| L33 raw=',(sc[32]||[]).slice(11,15));
+  console.log('K34=',i2team,'| L34 raw=',(sc[33]||[]).slice(11,15));
+  console.log('K35=',cel(sc,34,10),'| full row35=',(sc[34]||[]).slice(10,16));
 
   /* K35 = result — show below venue in match-info-bar */
   const miResult=$('mi-result');
@@ -912,10 +916,13 @@ function toggleCard(card){card.classList.toggle('open');}
 ════════════════════════════════════════════ */
 function renderPoints(sc){
   const tbl=$('pts-tbl'); tbl.innerHTML='';
-  /* sc[2] = row3 = headers (C3:H3 = cols 2-7) */
-  const hdrs=(sc[2]||[]).slice(2,8).map(h=>(h||'').trim());
-  /* sc[3..34] = rows 4-35 = data */
-  const dataRows=sc.slice(3,35).filter(r=>r.slice(2,8).some(c=>c));
+  /* C2:H2 = sc[1] cols 2-7 = headers */
+  const rawHdrs=(sc[1]||[]).slice(2,8).map(h=>(h||'').trim());
+  const hdrs=rawHdrs.some(h=>h)?rawHdrs:['Player Name','Points','Batting','Bowling','Fielding','Sel. by'];
+  /* C3:H35 = sc[2..34] cols 2-7 = data */
+  const dataRows=sc.slice(2,35).filter(r=>r.slice(2,8).some(c=>c));
+  console.log('Points headers from C2:H2 =',hdrs);
+  console.log('Points data rows:',dataRows.length);
 
   if(!dataRows.length){
     tbl.innerHTML='<tbody><tr><td colspan="6" style="color:#9e9e9e;padding:16px;text-align:center">No points data yet</td></tr></tbody>';
@@ -930,7 +937,7 @@ function renderPoints(sc){
   thead.appendChild(hr);tbl.appendChild(thead);
 
   /* tbody — sorted by Points (col index 1) desc */
-  const sorted=[...dataRows].sort((a,b)=>n0(b[3])-n0(a[3]));  /* col D = index 3 = Points */
+  const sorted=[...dataRows].sort((a,b)=>n0(b[3])-n0(a[3]));  /* col D = sheet index 3 = Points */
   const tbody=document.createElement('tbody');
   sorted.forEach(row=>{
     const cells=row.slice(2,8).map(c=>(c||'').trim());
