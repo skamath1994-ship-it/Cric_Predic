@@ -799,7 +799,7 @@ function buildLive(data){
     }
     if(/^partner/i.test(c0)){
       /* C39=Partnership label, D39=details (next col) — combine them */
-      const detail = c.slice(1).find(v=>v) || '';  /* c[1]=D39 */
+      const detail = cells.slice(1).find(v=>v) || '';  /* cells[1]=D39 */
       const display = detail ? 'Partnership: ' + detail : c0;
       html+=`<tr class="live-partnership"><td colspan="6">${esc(display)}</td></tr>`;
       continue;
