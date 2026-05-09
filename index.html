@@ -916,8 +916,8 @@ function toggleCard(card){card.classList.toggle('open');}
 ════════════════════════════════════════════ */
 function renderPoints(sc){
   const tbl=$('pts-tbl'); tbl.innerHTML='';
-  /* C2:H2 = sc[2] cols 2-7 = headers */
-  const rawHdrs=(sc[0]||[]).slice(2,8).map(h=>(h||'').trim()); /* C2:H2 = sc[0] */
+  /* C2:H2 = sc[1] cols 2-7 = headers */
+  const rawHdrs=(sc[1]||[]).slice(2,8).map(h=>(h||'').trim()); /* C2:H2 = sc[1] */
   const hdrs=rawHdrs.some(h=>h)?rawHdrs:['Player Name','Points','Batting','Bowling','Fielding','Sel. by'];
   /* C3:H35 = sc[2..34] cols 2-7 = data */
   const dataRows=sc.slice(1,34).filter(r=>r.slice(2,8).some(c=>c)); /* C3:H35 = sc[1..33] */
