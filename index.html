@@ -99,10 +99,8 @@ body{font-family:'Barlow',sans-serif;background:#f5f5f5;color:#212121;min-height
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
 .inn-score{
-  font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:700;
-  color:#1a237e;white-space:nowrap;flex-shrink:0;
-  background:#e8eaf6;border-radius:6px;padding:3px 10px;margin-right:6px;
-  min-width:20px;text-align:center;
+  font-family:'Oswald',sans-serif;font-size:1.05rem;font-weight:700;
+  color:#1a237e;white-space:nowrap;flex-shrink:0;margin-right:8px;
 }
 .inn-toggle{
   width:26px;height:26px;border-radius:50%;flex-shrink:0;
@@ -488,13 +486,21 @@ function renderScorecard(pred, sc){
   $('mi-fixture').textContent = fixture||'Match';
   if(venue){$('mi-venue').textContent=venue;sh('mi-venue-row');}else{hd('mi-venue-row');}
   if(rr)   {$('mi-rr').textContent=rr;sh('mi-rr-row');}else{hd('mi-rr-row');}
-  if(result){$('mi-result').textContent=result;sh('mi-result');}else{hd('mi-result');}
 
-  /* ── Innings summaries K33:L33 and K34:L34 ── */
+  /* ── Innings summaries K33:M33 and K34:M34 (L or M may hold score due to merge) ── */
   const i1team  = cel(sc,32,10); /* K33 */
-  const i1score = cel(sc,32,11); /* L33 */
+  const i1score = cel(sc,32,11)||cel(sc,32,12); /* L33 or M33 */
   const i2team  = cel(sc,33,10); /* K34 */
-  const i2score = cel(sc,33,11); /* L34 */
+  const i2score = cel(sc,33,11)||cel(sc,33,12); /* L34 or M34 */
+
+  /* K35 = result — show below venue in match-info-bar */
+  const miResult=$('mi-result');
+  if(result){
+    miResult.textContent=result;
+    miResult.style.display='block';
+  } else {
+    miResult.style.display='none';
+  }
 
   $('inn1-team').textContent  = i1team ||'1st Innings';
   const s1=$('inn1-score'); s1.textContent=i1score||''; s1.style.display=i1score?'':'none';
