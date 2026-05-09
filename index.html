@@ -99,8 +99,10 @@ body{font-family:'Barlow',sans-serif;background:#f5f5f5;color:#212121;min-height
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
 .inn-score{
-  font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:700;
-  color:#212121;white-space:nowrap;flex-shrink:0;
+  font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:700;
+  color:#1a237e;white-space:nowrap;flex-shrink:0;
+  background:#e8eaf6;border-radius:6px;padding:3px 10px;margin-right:6px;
+  min-width:20px;text-align:center;
 }
 .inn-toggle{
   width:26px;height:26px;border-radius:50%;flex-shrink:0;
@@ -495,9 +497,9 @@ function renderScorecard(pred, sc){
   const i2score = cel(sc,33,11); /* L34 */
 
   $('inn1-team').textContent  = i1team ||'1st Innings';
-  $('inn1-score').textContent = i1score||'';
+  const s1=$('inn1-score'); s1.textContent=i1score||''; s1.style.display=i1score?'':'none';
   $('inn2-team').textContent  = i2team ||'2nd Innings';
-  $('inn2-score').textContent = i2score||'';
+  const s2=$('inn2-score'); s2.textContent=i2score||''; s2.style.display=i2score?'':'none';
 
   /* ── Batting tables ── */
   /* K2:P31 → sc rows 1-30, cols 10-15 (skip row 0 which is row1, data starts row2=sc[1]) */
