@@ -512,9 +512,9 @@ function renderScorecard(pred, sc){
   /* ── Innings summaries K33:M33 and K34:M34 (L or M may hold score due to merge) ── */
   const i1team  = cel(sc,32,10); /* K33 = sc[32] = sheet row33 */
   /* Score: search L33(11), M33(12), N33(13) — merged cells export to first col of merge */
-  const i1score = cel(sc,32,11)||cel(sc,32,12)||cel(sc,32,13)||cel(sc,32,14); /* L33 */
+  const i1score = cel(sc,32,13)||cel(sc,32,14)||cel(sc,32,15)||cel(sc,32,14); /* L33 */
   const i2team  = cel(sc,33,10); /* K34 = sc[33] = sheet row34 */
-  const i2score = cel(sc,33,11)||cel(sc,33,12)||cel(sc,33,13)||cel(sc,33,14); /* L34 */
+  const i2score = cel(sc,33,13)||cel(sc,33,14)||cel(sc,33,15)||cel(sc,33,14); /* L34 */
   console.log('K33=',i1team,'| sc[32]=',(sc[32]||[]).slice(12,17));
   console.log('K34=',i2team,'| sc[33]=',(sc[33]||[]).slice(12,17));
   console.log('K35=',cel(sc,34,10),'| sc[34]=',(sc[34]||[]).slice(12,18));
@@ -908,7 +908,7 @@ function toggleCard(card){card.classList.toggle('open');}
 
 /* ════════════════════════════════════════════
    POINTS TABLE — Scorecard T20 C3:H35
-   Headers: Player Name, Points, Batting, Bowling, Fielding, Sel. by
+   Headers: Player Name, Points, Batting, Bowling, Fielding, Sel. by, Cap. by,	VC. by
    C=col2, D=col3, E=col4, F=col5, G=col6, H=col7
    Row 3 (index 2) = headers, rows 4-35 (index 3-34) = data
 ════════════════════════════════════════════ */
@@ -916,10 +916,10 @@ function renderPoints(sc){
   const tbl=$('pts-tbl'); tbl.innerHTML='';
   /* C2:H2 = sc[1] cols 2-7 = headers */
   /* Headers hardcoded — sheet C2:H2 often contains merged match title */
-  const hdrs=['Player Name','Points','Batting','Bowling','Fielding','Sel. by'];
+  const hdrs=['Player Name','Total Points','Batting Pts','Bowling Pts','Fielding Pts','Selected by','Captain by','V.Captain by' ];
   /* C3:H35 = sc[1..34] cols 2-7 = data */
-  const dataRows=sc.slice(1,35).filter(r=>r.slice(2,8).some(c=>c)); /* C3:H35 = sc[1..34] */
-  console.log('Points headers from C2:H2 =',hdrs);
+  const dataRows=sc.slice(1,34).filter(r=>r.slice(2,9).some(c=>c)); /* C3:H35 = sc[1..34] */
+  console.log('Points headers from C2:J2 =',hdrs);
   console.log('Points data rows:',dataRows.length);
 
   if(!dataRows.length){
