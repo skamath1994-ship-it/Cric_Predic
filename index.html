@@ -918,7 +918,7 @@ function renderPoints(sc){
   /* Headers hardcoded — sheet C2:H2 often contains merged match title */
   const hdrs=['Player Name','Total Points','Batting Pts','Bowling Pts','Fielding Pts','Selected by','Captain by','V.Captain by' ];
   /* C3:H35 = sc[1..34] cols 2-7 = data */
-  const dataRows=sc.slice(1,34).filter(r=>r.slice(2,9).some(c=>c)); /* C3:H35 = sc[1..34] */
+  const dataRows=sc.slice(1,34).filter(r=>r.slice(2,10).some(c=>c)); /* C3:H35 = sc[1..34] */
   console.log('Points headers from C2:J2 =',hdrs);
   console.log('Points data rows:',dataRows.length);
 
@@ -930,7 +930,7 @@ function renderPoints(sc){
   /* thead */
   const thead=document.createElement('thead');
   const hr=document.createElement('tr');
-  const finalHdrs=hdrs.length&&hdrs.some(h=>h)?hdrs:['Player Name','Points','Batting','Bowling','Fielding','Sel. by'];
+  const finalHdrs=hdrs.length&&hdrs.some(h=>h)?hdrs:['Player Name','Points','Batting','Bowling','Fielding','Sel. by','Captain by','V.Captain by'];
   finalHdrs.forEach(h=>{const th=document.createElement('th');th.textContent=h;hr.appendChild(th);});
   thead.appendChild(hr);tbl.appendChild(thead);
 
@@ -938,7 +938,7 @@ function renderPoints(sc){
   const sorted=[...dataRows].sort((a,b)=>n0(b[3])-n0(a[3]));  /* col D = sheet index 3 = Points */
   const tbody=document.createElement('tbody');
   sorted.forEach(row=>{
-    const cells=row.slice(2,8).map(c=>(c||'').trim());
+    const cells=row.slice(2,10).map(c=>(c||'').trim());
     if(!cells[0])return;  /* skip empty name rows */
     const tr=document.createElement('tr');
     cells.forEach((c,ci)=>{
