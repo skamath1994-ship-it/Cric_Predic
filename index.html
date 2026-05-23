@@ -510,10 +510,10 @@ function renderScorecard(pred, sc){
   if(rr)   {$('mi-rr').textContent=rr;sh('mi-rr-row');}else{hd('mi-rr-row');}
 
   /* ── Innings summaries K33:M33 and K34:M34 (L or M may hold score due to merge) ── */
-  const i1team  = cel(sc,32,10); /* K33 = sc[32] = sheet row33 */
+  const i1team  = cel(sc,32,11); /* K33 = sc[32] = sheet row33 */
   /* Score: search L33(11), M33(12), N33(13) — merged cells export to first col of merge */
   const i1score = ''; /* K33 merged — full text already in i1team */
-  const i2team  = cel(sc,33,10); /* K34 = sc[33] = sheet row34 */
+  const i2team  = cel(sc,33,11); /* K34 = sc[33] = sheet row34 */
   const i2score = ''; /* K34 merged — full text already in i2team */
   console.log('K33=',i1team,'| sc[32]=',(sc[32]||[]).slice(10,12));
   console.log('K34=',i2team,'| sc[33]=',(sc[33]||[]).slice(10,12));
