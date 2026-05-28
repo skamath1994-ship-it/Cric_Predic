@@ -851,12 +851,12 @@ function renderPredictions(predRows, all){
     return{pred,ptsRow,name,totalPts};
   }).filter(Boolean).sort((a,b)=>b.totalPts-a.totalPts);
 
-  const medals=['🥇','🥈','🥉'];
+  const winnerCount = Math.floor(entries.length / 2);
   const list=$('pred-list');list.innerHTML='';
 
   entries.forEach((e,i)=>{
     const rank=i+1;
-    const rc=rank<=3?'r'+rank:'';
+   const rc='';
     const {pred,ptsRow,name,totalPts}=e;
 
     let det=FIELDS.map(f=>{
@@ -884,7 +884,7 @@ function renderPredictions(predRows, all){
     card.className='pred-card';card.style.animationDelay=(i*.04)+'s';
     card.innerHTML=`
       <div class="pred-summary" onclick="toggleCard(this.closest('.pred-card'))">
-        <div class="pred-rank ${rc}">${rank<=3?medals[rank-1]:rank}</div>
+        <div class="pred-rank ${rc}">${rank<=winnerCount?'🏆':rank}</div>
         <div class="pred-avt ${isFirst?'r1-avt':''}">
           ${esc(initials(name))}
         </div>
