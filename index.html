@@ -49,7 +49,7 @@ body{font-family:'Barlow',sans-serif;background:#f5f5f5;color:#212121;min-height
 
 /* ── SECTION HEADER ── */
 .sh{display:flex;align-items:baseline;gap:12px;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid #e0e0e0}
-.sh-t{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--green-dark)}
+.sh-t{font-family:'Oswald',sans-serif;font-size:1.05rem;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:#1a237e}
 .sh-b{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;color:#757575;background:#f0f0f0;padding:2px 10px;border-radius:20px}
 
 /* ════════════════════════════════
@@ -207,44 +207,10 @@ body{font-family:'Barlow',sans-serif;background:#f5f5f5;color:#212121;min-height
 /* ════════════════════════════════
    PREDICTIONS
 ════════════════════════════════ */
-#tab-pred{
-  position:relative;border-radius:var(--border-radius-lg);overflow:hidden;
-  background:#2d7a2d;padding:12px;
-}
-#tab-pred::before{
-  content:'';position:absolute;inset:0;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='100%25'%3E%3Crect width='640' height='100%25' fill='%232d7a2d'/%3E%3Cellipse cx='320' cy='50%25' rx='290' ry='45%25' fill='%23267326' stroke='%233a9c3a' stroke-width='2'/%3E%3Cellipse cx='320' cy='50%25' rx='170' ry='26%25' fill='%231e6b1e' stroke='%233a9c3a' stroke-width='1.5'/%3E%3Crect x='295' y='35%25' width='50' height='30%25' rx='4' fill='%23c8a96e' opacity='.85'/%3E%3Crect width='640' height='100%25' fill='rgba(0,0,0,0.55)'/%3E%3C/svg%3E") center/cover no-repeat;
-  z-index:0;
-}
-#tab-pred>*{position:relative;z-index:1;}
-  .pred-list{display:flex;flex-direction:column;gap:8px;margin-top:6px}
-.pred-card{background:rgba(255,255,255,0.10);border:0.5px solid rgba(255,255,255,0.18);border-radius:var(--border-radius-lg);overflow:hidden;animation:fu .35s ease both;backdrop-filter:blur(4px);}
-.pred-summary{display:flex;align-items:center;padding:12px 14px;cursor:pointer;gap:10px;user-select:none;transition:background .15s;}
-.pred-summary:hover{background:rgba(255,255,255,0.08)}
-.pred-nm{font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pred-ts-sm{font-size:.68rem;color:rgba(255,255,255,0.55);font-family:'Barlow Condensed',sans-serif}
-.pred-tot{font-family:'Oswald',sans-serif;font-size:1.4rem;font-weight:500;color:#7ee8a2;white-space:nowrap;text-align:right;line-height:1}
-.pred-tot-lbl{font-size:.62rem;color:rgba(255,255,255,0.55);text-align:right;text-transform:uppercase;letter-spacing:.5px}
-.pred-avt{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-family:'Oswald',sans-serif;font-size:.9rem;font-weight:500;color:#fff;flex-shrink:0;border:1px solid rgba(255,255,255,0.3)}
-.r1-avt{background:rgba(255,210,80,0.3)!important;border-color:rgba(255,210,80,0.6)!important;}
-.pred-rank{font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:500;min-width:28px;text-align:center;color:rgba(255,255,255,0.5);flex-shrink:0}
-.expand-btn{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,0.1);border:0.5px solid rgba(255,255,255,0.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.88rem;font-weight:500;color:rgba(255,255,255,0.6);transition:all .2s;line-height:1}
-.pred-summary:hover .expand-btn{background:rgba(126,232,162,0.2);border-color:rgba(126,232,162,0.5);color:#7ee8a2}
-.pred-card.open .expand-btn{background:rgba(255,200,80,0.2);border-color:rgba(255,200,80,0.5);color:#ffd080;transform:rotate(45deg)}
-.pred-details{display:none;border-top:0.5px solid rgba(255,255,255,0.1);padding:10px 14px 12px;background:rgba(0,0,0,0.15)}
-.pred-card.open .pred-details{display:block}
-.pred-row{display:flex;align-items:center;padding:6px 0;border-bottom:0.5px solid rgba(255,255,255,0.08);gap:8px}
-.pred-row:last-child{border-bottom:none}
-.pred-lbl{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.5);flex-shrink:0;min-width:82px}
-.pred-val{font-size:.84rem;color:#fff;flex:1;font-weight:400}
-.pred-val.winner{color:#7ee8a2;font-weight:500}
-.pred-val.captain{color:#90caff;font-weight:500}
-.pred-val.vc{color:#90caff;font-weight:500}
-.pred-val.extra{color:#ffaa70}
-.pred-val.empty{color:rgba(255,255,255,0.25);font-style:italic;font-size:.76rem}
-.pp{background:rgba(126,232,162,0.18);border:0.5px solid rgba(126,232,162,0.4);border-radius:20px;padding:2px 8px;font-family:'Barlow Condensed',sans-serif;font-size:.76rem;font-weight:500;color:#7ee8a2;white-space:nowrap;flex-shrink:0;min-width:38px;text-align:right}
-.pp.z{background:rgba(255,100,100,0.15);border-color:rgba(255,100,100,0.35);color:#ff9090}
-.pp.h{background:rgba(255,200,80,0.2);border-color:rgba(255,200,80,0.4);color:#ffd080}
+.pred-list{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.pred-card{background:#fff;border:1px solid #e0e0e0;border-radius:10px;overflow:hidden;animation:fu .35s ease both;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.pred-summary{display:flex;align-items:center;padding:13px 16px;cursor:pointer;gap:12px;user-select:none;transition:background .15s}
+.pred-summary:hover{background:#f5f7ff}
 .pred-rank{font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:700;min-width:28px;text-align:center;color:#9e9e9e;flex-shrink:0}
 .pred-rank.r1{color:#f9a825}.pred-rank.r2{color:#9e9e9e}.pred-rank.r3{color:#a1887f}
 .pred-avt{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#3949ab,#1a237e);display:flex;align-items:center;justify-content:center;font-family:'Oswald',sans-serif;font-size:.9rem;font-weight:700;color:#fff;flex-shrink:0;border:2px solid #e8eaf6}
@@ -294,9 +260,6 @@ body{font-family:'Barlow',sans-serif;background:#f5f5f5;color:#212121;min-height
   .inn-team{font-size:.9rem}
   .inn-score{font-size:1.05rem}
 }
-  #tab-pred .sh{border-bottom-color:rgba(255,255,255,0.2);}
-#tab-pred .sh .sh-t{color:#fff;}
-#tab-pred #pred-cnt{background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.7);}
 </style>
 </head>
 <body>
