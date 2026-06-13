@@ -36,6 +36,7 @@ body{font-family:'Barlow',sans-serif;background:#f5f5f5;color:#212121;min-height
 .tab{padding:10px 20px;font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#757575;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .18s;border-radius:4px 4px 0 0}
 .tab:hover{color:#1a237e;background:rgba(26,35,126,.05)}
 .tab.active{color:#1a237e;border-bottom-color:#1a237e;background:rgba(26,35,126,.06)}
+
 .content{max-width:1100px;margin:0 auto;padding:16px 12px 60px}
 .tab-panel{display:none}.tab-panel.active{display:block}
 
@@ -52,84 +53,166 @@ body{font-family:'Barlow',sans-serif;background:#f5f5f5;color:#212121;min-height
 .sh-b{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;color:#757575;background:#f0f0f0;padding:2px 10px;border-radius:20px}
 
 /* ════════════════════════════════
-   MATCH INFO BAR
+   MATCH INFO BAR (top of scorecard)
 ════════════════════════════════ */
 .match-info-bar{
   background:#fff;border:1px solid #e0e0e0;border-radius:10px;
   padding:12px 16px;margin-bottom:12px;display:flex;flex-direction:column;gap:5px;
   box-shadow:0 1px 4px rgba(0,0,0,.08);
 }
-.mi-fixture{font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;color:#1a237e;letter-spacing:.5px;text-transform:uppercase;}
-.mi-row{font-family:'Barlow Condensed',sans-serif;font-size:.82rem;color:#555;display:flex;align-items:center;gap:5px;}
+.mi-fixture{
+  font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;
+  color:#1a237e;letter-spacing:.5px;text-transform:uppercase;
+}
+.mi-row{
+  font-family:'Barlow Condensed',sans-serif;font-size:.82rem;
+  color:#555;display:flex;align-items:center;gap:5px;
+}
 .mi-row svg{flex-shrink:0;opacity:.6}
-.mi-result{font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:600;color:#2e7d32;margin-top:6px;padding-top:6px;border-top:1px solid #e0e0e0;letter-spacing:.3px;}
+.mi-result{
+  font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:600;
+  color:#2e7d32;margin-top:6px;padding-top:6px;border-top:1px solid #e0e0e0;
+  letter-spacing:.3px;
+}
 
 /* ════════════════════════════════
    INNINGS BOX
 ════════════════════════════════ */
-.innings-box{background:#fff;border:1px solid #e0e0e0;border-radius:10px;overflow:hidden;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.06);}
-.inn-header{display:flex;align-items:center;gap:10px;padding:12px 16px;cursor:pointer;user-select:none;background:#f8f9fa;transition:background .15s;border-bottom:1px solid #e8e8e8;}
+.innings-box{
+  background:#fff;border:1px solid #e0e0e0;border-radius:10px;
+  overflow:hidden;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.06);
+}
+.inn-header{
+  display:flex;align-items:center;gap:10px;
+  padding:12px 16px;cursor:pointer;user-select:none;
+  background:#f8f9fa;transition:background .15s;border-bottom:1px solid #e8e8e8;
+}
 .inn-header:hover{background:#f0f4ff}
-.inn-team{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:700;color:#1a237e;text-transform:uppercase;letter-spacing:.5px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.inn-score{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:700;color:#1a237e;white-space:nowrap;flex-shrink:0;margin-left:auto;margin-right:10px;letter-spacing:.5px;}
-.inn-toggle{width:26px;height:26px;border-radius:50%;flex-shrink:0;background:#e8eaf6;border:1px solid #c5cae9;display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;color:#3f51b5;transition:all .25s;}
-.innings-box.open .inn-toggle{background:#1a237e;border-color:#1a237e;color:#fff;transform:rotate(45deg);}
+
+.inn-team{
+  font-family:'Oswald',sans-serif;font-size:1rem;font-weight:700;
+  color:#1a237e;text-transform:uppercase;letter-spacing:.5px;flex:1;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.inn-score{
+  font-family:'Oswald',sans-serif;font-size:1rem;font-weight:700;
+  color:#1a237e;white-space:nowrap;flex-shrink:0;
+  margin-left:auto;margin-right:10px; /* right-align score before + button */
+  letter-spacing:.5px;
+}
+.inn-toggle{
+  width:26px;height:26px;border-radius:50%;flex-shrink:0;
+  background:#e8eaf6;border:1px solid #c5cae9;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.9rem;font-weight:700;color:#3f51b5;transition:all .25s;
+}
+.innings-box.open .inn-toggle{
+  background:#1a237e;border-color:#1a237e;color:#fff;transform:rotate(45deg);
+}
 .inn-body{display:none;border-top:1px solid #e0e0e0}
 .innings-box.open .inn-body{display:block}
 
 /* ── Scorecard tables ── */
 .sc-section{padding:10px 12px 8px}
-.sc-sec-title{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#1a237e;margin-bottom:6px;padding-bottom:4px;border-bottom:2px solid #e8eaf6;}
+.sc-sec-title{
+  font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;color:#1a237e;
+  margin-bottom:6px;padding-bottom:4px;border-bottom:2px solid #e8eaf6;
+}
 .sc-tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:6px;border:1px solid #e8e8e8}
 .sc-tbl{width:100%;border-collapse:collapse;font-size:.82rem;background:#fff}
 .sc-tbl thead tr{background:#f5f5f5;border-bottom:2px solid #e0e0e0}
-.sc-tbl thead th{padding:8px 10px;text-align:right;font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#555;white-space:nowrap;}
+.sc-tbl thead th{
+  padding:8px 10px;text-align:right;
+  font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;color:#555;white-space:nowrap;
+}
 .sc-tbl thead th:first-child{text-align:left}
 .sc-tbl tbody tr{border-bottom:1px solid #f0f0f0}
 .sc-tbl tbody tr:last-child{border-bottom:none}
 .sc-tbl tbody tr.row-total{border-top:2px solid #e0e0e0;background:#f8f9fa}
 .sc-tbl tbody tr.row-extras{background:#fafafa}
+.sc-tbl tbody tr.row-dismiss{background:#fafafa}
 .sc-tbl td{padding:6px 10px;text-align:right;white-space:nowrap;font-family:'Barlow Condensed',sans-serif}
 .sc-tbl td:first-child{text-align:left;white-space:normal}
 .td-name{color:#1565c0;font-weight:700;font-size:.84rem}
-.td-name a{color:#1565c0;text-decoration:none;}
-.td-name a:hover{text-decoration:underline;color:#0d47a1;}
+.td-dismiss{font-size:.72rem;color:#757575;display:block;white-space:normal;font-weight:400;margin-top:1px;font-style:italic}
+.td-notout{color:#2e7d32;font-size:.72rem;display:block;margin-top:1px;font-style:italic}
 .td-num{color:#212121;font-size:.82rem}
 .td-num.bold{font-weight:700;color:#000}
 .td-total-lbl{font-family:'Barlow Condensed',sans-serif;font-weight:700;color:#212121;font-size:.84rem}
 .td-total-val{font-family:'Oswald',sans-serif;font-weight:700;color:#1a237e;font-size:.9rem}
+.td-muted{color:#9e9e9e;font-size:.75rem}
 .row-notout{background:#f1f8e9}
-.sc-tbl tbody tr.dismiss-row td{padding-top:1px;padding-bottom:6px;font-style:italic;color:#757575;font-size:.72rem;font-family:'Barlow Condensed',sans-serif;border-bottom:1px solid #f0f0f0;}
+/* dismiss row — italic muted text spanning full name cell */
+.sc-tbl tbody tr.dismiss-row td{
+  padding-top:1px;padding-bottom:5px;font-style:italic;
+  color:#757575;font-size:.72rem;font-family:'Barlow Condensed',sans-serif;
+  border-bottom:1px solid #f0f0f0;
+}
 .sc-tbl tbody tr.dismiss-row td:not(:first-child){color:transparent}
 
 /* ════════════════════════════════
-   LIVE STATS
+   LIVE STATS (C36:H42)
 ════════════════════════════════ */
-.live-box{background:#fff;border:1px solid #c8e6c9;border-radius:10px;overflow:hidden;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.06);}
-.live-title{background:#e8f5e9;border-bottom:1px solid #c8e6c9;padding:7px 14px;font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#2e7d32;display:flex;align-items:center;gap:6px;}
-.live-dot{width:7px;height:7px;border-radius:50%;background:#4caf50;animation:pulse 1.2s ease-in-out infinite;flex-shrink:0}
+.live-box{
+  background:#fff;border:1px solid #c8e6c9;
+  border-radius:10px;overflow:hidden;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.06);
+}
+.live-title{
+  background:#e8f5e9;border-bottom:1px solid #c8e6c9;
+  padding:7px 14px;font-family:'Barlow Condensed',sans-serif;font-size:.7rem;
+  font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#2e7d32;
+  display:flex;align-items:center;gap:6px;
+}
+.live-dot{width:7px;height:7px;border-radius:50%;background:#4caf50;
+  animation:pulse 1.2s ease-in-out infinite;flex-shrink:0}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 .live-tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
 .live-tbl{width:100%;border-collapse:collapse}
-.live-tbl th{padding:5px 10px;text-align:right;font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#555;background:#fafafa;border-bottom:1px solid #e0e0e0;}
+.live-tbl th{
+  padding:5px 10px;text-align:right;
+  font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;color:#555;
+  background:#fafafa;border-bottom:1px solid #e0e0e0;
+}
 .live-tbl th:first-child{text-align:left}
-.live-tbl td{padding:7px 10px;text-align:right;border-bottom:1px solid #f5f5f5;font-family:'Barlow Condensed',sans-serif;font-size:.82rem;color:#212121}
+.live-tbl td{padding:7px 10px;text-align:right;border-bottom:1px solid #f5f5f5;
+  font-family:'Barlow Condensed',sans-serif;font-size:.82rem;color:#212121}
 .live-tbl td:first-child{text-align:left;color:#1565c0;font-weight:600}
-.live-tbl td:first-child a{color:#1565c0;text-decoration:none;}
-.live-tbl td:first-child a:hover{text-decoration:underline;}
 .live-tbl tr:last-child td{border-bottom:none}
-.live-sec-row td{background:#f5f5f5;font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;text-align:left!important;color:#757575!important;}
-.live-partnership td{color:#e65100!important;font-style:italic;font-size:.78rem;text-align:left!important;padding:5px 10px;}
+.live-sec-row td{
+  background:#f5f5f5;
+  font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;
+  padding:4px 10px;text-align:left!important;color:#757575!important;
+}
+.live-partnership td{
+  color:#e65100!important;font-style:italic;font-size:.78rem;text-align:left!important;
+  padding:5px 10px;
+}
+
+/* ════════════════════════════════
+   DREAM 7
+════════════════════════════════ */
+.d7-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:10px;margin-top:6px}
+.d7-card{background:#fff;border:1px solid #e0e0e0;border-radius:10px;padding:14px 16px;text-align:center;animation:fu .4s ease both;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+@keyframes fu{from{transform:translateY(12px);opacity:0}to{transform:translateY(0);opacity:1}}
+.d7-nm{font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:700;text-transform:uppercase;color:#212121;letter-spacing:.4px;margin-bottom:6px;line-height:1.2}
+.d7-pt{font-family:'Oswald',sans-serif;font-size:1.8rem;font-weight:700;color:#1565c0;line-height:1}
+.d7-pt.neg{color:#c62828}
+.d7-pt.zero{color:#9e9e9e}
+.d7-lb{font-size:.65rem;color:#9e9e9e;letter-spacing:.5px;text-transform:uppercase;margin-top:3px}
 
 /* ════════════════════════════════
    PREDICTIONS
 ════════════════════════════════ */
 .pred-list{display:flex;flex-direction:column;gap:8px;margin-top:6px}
 .pred-card{background:#fff;border:1px solid #e0e0e0;border-radius:10px;overflow:hidden;animation:fu .35s ease both;box-shadow:0 1px 4px rgba(0,0,0,.06)}
-@keyframes fu{from{transform:translateY(12px);opacity:0}to{transform:translateY(0);opacity:1}}
 .pred-summary{display:flex;align-items:center;padding:13px 16px;cursor:pointer;gap:12px;user-select:none;transition:background .15s}
 .pred-summary:hover{background:#f5f7ff}
 .pred-rank{font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:700;min-width:28px;text-align:center;color:#9e9e9e;flex-shrink:0}
+.pred-rank.r1{color:#f9a825}.pred-rank.r2{color:#9e9e9e}.pred-rank.r3{color:#a1887f}
 .pred-avt{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#3949ab,#1a237e);display:flex;align-items:center;justify-content:center;font-family:'Oswald',sans-serif;font-size:.9rem;font-weight:700;color:#fff;flex-shrink:0;border:2px solid #e8eaf6}
 .r1-avt{background:linear-gradient(135deg,#f9a825,#fdd835)!important;border-color:#f9a825!important;color:#3e2723!important}
 .pred-nm-wrap{flex:1;min-width:0}
@@ -155,27 +238,24 @@ body{font-family:'Barlow',sans-serif;background:#f5f5f5;color:#212121;min-height
 .pp.z{background:#ffebee;border-color:#ffcdd2;color:#c62828}
 .pp.h{background:#fff8e1;border-color:#ffe082;color:#f57f17}
 
-/* ════════════════════════════════
-   POINTS TABLE
-════════════════════════════════ */
 .pts-tbl-wrap{overflow-x:auto;overflow-y:auto;max-height:75vh;-webkit-overflow-scrolling:touch;border-radius:10px;border:1px solid #e0e0e0;box-shadow:0 1px 4px rgba(0,0,0,.07)}
 .pts-tbl{width:100%;border-collapse:separate;border-spacing:0;font-size:.85rem;min-width:420px}
 .pts-tbl thead th{padding:9px 12px;text-align:right;font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#444;background:#f5f5f5;border-bottom:2px solid #d0d0d0;white-space:nowrap;position:sticky;top:0;z-index:2;}
 .pts-tbl thead th:first-child{text-align:left;position:sticky;left:0;z-index:3;background:#f5f5f5;}
+.pts-tbl thead th:first-child{text-align:left}
 .pts-tbl thead th:nth-child(2){color:#1b5e20}
 .pts-tbl tbody tr{border-bottom:1px solid #eeeeee;transition:background .1s}
 .pts-tbl tbody tr:hover{background:#f9fbe7}
 .pts-tbl tbody tr:last-child{border-bottom:none}
 .pts-tbl td{padding:9px 12px;text-align:right;font-family:'Barlow Condensed',sans-serif;color:#333}
 .pts-tbl td:first-child{text-align:left;color:#1565c0;font-weight:600;font-size:.88rem;position:sticky;left:0;background:#fff;z-index:1;}
-.pts-tbl td:first-child a{color:#1565c0;text-decoration:none;}
-.pts-tbl td:first-child a:hover{text-decoration:underline;color:#0d47a1;}
 .pts-tbl tbody tr:hover td:first-child{background:#f9fbe7;}
 .pts-tbl td:nth-child(2){font-weight:700;color:#1b5e20;font-family:'Oswald',sans-serif;font-size:.95rem}
 .pts-tbl .pts-sel{color:#777;font-size:.8rem}
 
 @media(max-width:480px){
   .hdr{padding:10px 14px;}
+}
   .logo h1{font-size:1.15rem}
   .inn-team{font-size:.9rem}
   .inn-score{font-size:1.05rem}
@@ -187,7 +267,7 @@ body{font-family:'Barlow',sans-serif;background:#f5f5f5;color:#212121;min-height
 <div class="hdr">
   <div class="hdr-in">
     <div class="logo">
-      <img src="logo.png" onerror="this.style.display='none'" style="height:42px;width:42px;object-fit:contain;border-radius:6px;" alt="MPL"/>
+<img src="logo.png" onerror="this.style.display='none'" style="height:42px;width:42px;object-fit:contain;border-radius:6px;" alt="MPL"/>   
       <div>
         <h1>MPL</h1>
         <p>Live Scorecard &amp; Predictions</p>
@@ -212,6 +292,8 @@ body{font-family:'Barlow',sans-serif;background:#f5f5f5;color:#212121;min-height
   <div class="tab-panel active" id="tab-sc">
     <div id="sc-ld" class="status"><div class="spin"></div><h3>Loading Scorecard…</h3><p>Fetching live data</p></div>
     <div id="sc-main" style="display:none">
+
+      <!-- Match info bar -->
       <div class="match-info-bar">
         <div class="mi-fixture" id="mi-fixture">—</div>
         <div class="mi-row" id="mi-venue-row" style="display:none">
@@ -268,21 +350,14 @@ body{font-family:'Barlow',sans-serif;background:#f5f5f5;color:#212121;min-height
         <div class="live-title"><div class="live-dot"></div>Live</div>
         <div class="live-tbl-wrap"><table class="live-tbl" id="live-tbl"></table></div>
       </div>
+
+
+
     </div>
     <div id="sc-err" class="status" style="display:none">
       <h3>⚠️ Could not load</h3>
       <p id="sc-err-p">Make sure sheet is public (Anyone with link – Viewer).</p>
     </div>
-  </div>
-
-  <!-- ── PREDICTIONS TAB ── -->
-  <div class="tab-panel" id="tab-pred">
-    <div id="pred-ld" class="status"><div class="spin"></div><h3>Loading Predictions…</h3></div>
-    <div id="pred-main" style="display:none">
-      <div class="sh"><span class="sh-t">Predictions</span><span class="sh-b" id="pred-cnt"></span></div>
-      <div class="pred-list" id="pred-list"></div>
-    </div>
-    <div id="pred-err" class="status" style="display:none"><h3>⚠️ Could not load</h3><p>Check sheet permissions and refresh.</p></div>
   </div>
 
   <!-- ── POINTS TAB ── -->
@@ -297,18 +372,23 @@ body{font-family:'Barlow',sans-serif;background:#f5f5f5;color:#212121;min-height
     <div id="pts-err" class="status" style="display:none"><h3>⚠️ Could not load</h3></div>
   </div>
 
+  <!-- ── PREDICTIONS TAB (UNCHANGED) ── -->
+  <div class="tab-panel" id="tab-pred">
+    <div id="pred-ld" class="status"><div class="spin"></div><h3>Loading Predictions…</h3></div>
+    <div id="pred-main" style="display:none">
+      <div class="sh"><span class="sh-t">Predictions</span><span class="sh-b" id="pred-cnt"></span></div>
+      <div class="pred-list" id="pred-list"></div>
+    </div>
+    <div id="pred-err" class="status" style="display:none"><h3>⚠️ Could not load</h3><p>Check sheet permissions and refresh.</p></div>
+  </div>
+
 </div>
 
 <script>
 const SHEET_ID='1FrLu-ket-ZUIE5UPr8BkVuuvRMWtoJ3O283RIsosarg';
 const BASE=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv`;
 
-/* ── Slug helper for Sportskeeda links ── */
-function toSlug(name){
-  return name.toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
-}
-
-/* ── fetch a named sheet ── */
+/* ── fetch a named sheet, try variants ── */
 async function fetchSheet(names){
   for(const name of names){
     try{
@@ -316,9 +396,12 @@ async function fetchSheet(names){
       if(!r.ok) continue;
       const t=await r.text();
       if(t.startsWith('<!')) continue;
+      console.log(`✅ Loaded sheet: "${name}" — first cell:`,parseCSV(t)[0]?.[0]);
       return parseCSV(t);
     }catch(e){ console.warn(`Sheet "${name}" error:`,e.message); }
   }
+  /* final fallback — default sheet */
+  console.warn('Named sheet failed, using default');
   const r=await fetch(BASE);
   return parseCSV(await r.text());
 }
@@ -355,7 +438,9 @@ function fmtDate(ts){
 }
 
 /* ════════════════════════════════════════════
-   LOAD
+   LOAD — fetch BOTH sheets simultaneously
+   "Prediction LO" : fixture, venue, RR, dream7, predictions, points
+   "Scorecard T20" : result, innings summaries, batting, bowling, live
 ════════════════════════════════════════════ */
 async function loadData(){
   const btn=$('rBtn');btn.disabled=true;btn.textContent='⟳ Loading…';
@@ -363,14 +448,32 @@ async function loadData(){
   sh('pred-ld');hd('pred-main');hd('pred-err');
   sh('pts-ld');hd('pts-main');hd('pts-err');
   try{
+    /* Default sheet (no name) = first tab = "Prediction LO" — always reliable */
+    /* Scorecard T20 needs explicit name since it's not the first tab */
     const [predTxt, sc] = await Promise.all([
       fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv`).then(r=>r.text()).then(t=>parseCSV(t)),
       fetchSheet(['Scorecard ODI','scorecard odi','Scorecard Odi','ScoreCard ODI'])
     ]);
-    const pred=predTxt;
-    renderScorecard(pred,sc);
-    renderPredictions(pred.slice(1,21).filter(r=>r.some(c=>c)),pred);
+    const pred = predTxt;
+
+    /* Debug */
+    console.log('=== Prediction LO ===');
+    console.log('A22:',(pred[21]||[])[0]);
+    console.log('M23:',(pred[22]||[])[12],'  I23:',(pred[22]||[])[8]);
+    console.log('Dream7 row47:',(pred[46]||[]).slice(9,11));
+    console.log('=== Scorecard T20 ===');
+    console.log('K33-L33:',(sc[31]||[]).slice(10,12));
+    console.log('K34-L34:',(sc[32]||[]).slice(10,12));
+    console.log('K35:',(sc[33]||[])[10]);
+    console.log('Bat1 K2:',(sc[0]||[]).slice(10,16));
+    console.log('Bat1 K3:',(sc[1]||[]).slice(10,16));
+    console.log('Bowl1 AB2:',(sc[0]||[]).slice(27,34));
+    console.log('Live C36:',(sc[34]||[]).slice(2,8));
+
+    renderScorecard(pred, sc);
+    renderPredictions(pred.slice(1,21).filter(r=>r.some(c=>c)), pred);
     renderPoints(sc);
+
     $('tsLbl').textContent='Updated '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
   }catch(e){
     console.error(e);
@@ -384,145 +487,238 @@ async function loadData(){
 
 /* ════════════════════════════════════════════
    SCORECARD RENDER
+   pred (Prediction LO):
+     A22 = pred[21][0]   → fixture
+     M23 = pred[22][12]  → venue
+     I23 = pred[22][8]   → run rate
+     J47:K53 = pred[46..52] cols 9-10 → Dream7
+
+   sc (Scorecard T20) — 0-based:
+     K33 = sc[32][10], L33 = sc[32][11] → 1st inn summary
+     K34 = sc[33][10], L34 = sc[33][11] → 2nd inn summary
+     K35 = sc[34][10]                   → result
+     K2:P31  = sc[1..30]  cols 10-15   → 1st bat  (K=10,P=15)
+     AB2:AH12= sc[1..11]  cols 27-33   → 1st bowl (AB=27,AH=33)
+     AP2:AU31= sc[1..30]  cols 41-46   → 2nd bat  (AP=41,AU=46)
+     BG2:BM12= sc[1..11]  cols 58-64   → 2nd bowl (BG=58,BM=64)
+     C36:H42 = sc[35..41] cols 2-7     → live stats
 ════════════════════════════════════════════ */
-function renderScorecard(pred,sc){
+function renderScorecard(pred, sc){
+  /* ── Match info from Prediction LO ── */
   const fixture=(pred[21]||[])[0]||'';
   const venue  =(pred[22]||[])[12]||'';
   const rr     =(pred[22]||[])[8]||'';
-  const result = cel(sc,34,12);
+  const result = cel(sc,34,12);   /* K35 = sc[34] = sheet row35 */
 
-  $('mi-fixture').textContent=fixture||'Match';
+  $('mi-fixture').textContent = fixture||'Match';
   if(venue){$('mi-venue').textContent=venue;sh('mi-venue-row');}else{hd('mi-venue-row');}
-  if(rr){$('mi-rr').textContent=rr;sh('mi-rr-row');}else{hd('mi-rr-row');}
+  if(rr)   {$('mi-rr').textContent=rr;sh('mi-rr-row');}else{hd('mi-rr-row');}
+
+  /* ── Innings summaries K33:M33 and K34:M34 (L or M may hold score due to merge) ── */
+  const i1team  = cel(sc,32,12); /* K33 = sc[32] = sheet row33 */
+  /* Score: search L33(11), M33(12), N33(13) — merged cells export to first col of merge */
+  const i1score = ''; /* K33 merged — full text already in i1team */
+  const i2team  = cel(sc,33,12); /* K34 = sc[33] = sheet row34 */
+  const i2score = ''; /* K34 merged — full text already in i2team */
+
+  /* K35 = result — show below venue in match-info-bar */
   const miResult=$('mi-result');
-  if(result){miResult.textContent=result;miResult.style.display='block';}
-  else{miResult.style.display='none';}
+  if(result){
+    miResult.textContent=result;
+    miResult.style.display='block';
+  } else {
+    miResult.style.display='none';
+  }
 
-  const i1team=cel(sc,32,12);
-  const i2team=cel(sc,33,12);
+  /* Show K33+L33 merged, K34+L34 merged in the header */
+  $('inn1-team').textContent = i1team||'1st Innings';
+  const s1=$('inn1-score');
+  if(i1score){s1.textContent=i1score;s1.style.display='';}else{s1.style.display='none';}
+  $('inn2-team').textContent = i2team||'2nd Innings';
+  const s2=$('inn2-score');
+  if(i2score){s2.textContent=i2score;s2.style.display='';}else{s2.style.display='none';}
+  console.log('i1team:',i1team,'i1score:',i1score,'i2team:',i2team,'i2score:',i2score);
 
-  /* Team names with Sportskeeda links */
-  $('inn1-team').innerHTML=i1team
-    ?`<a href="https://www.sportskeeda.com/team/${toSlug(i1team)}" target="_blank" style="color:inherit;text-decoration:none">${esc(i1team)}</a>`
-    :'1st Innings';
-  $('inn1-score').style.display='none';
+  /* ── Batting tables ── */
+  /* K2:P31 → sc rows 1-30, cols 10-15 (skip row 0 which is row1, data starts row2=sc[1]) */
+  buildBatTable('inn1-bat', rng(sc,1,30,12,17));  /* K2:P31 sc[1]=sheet row2 */
+  /* AP2:AU31 → sc rows 1-30, cols 41-46 */
+  buildBatTable('inn2-bat', rng(sc,1,30,43,48));  /* AP2:AU31 sc[1]=sheet row2 */
 
-  $('inn2-team').innerHTML=i2team
-    ?`<a href="https://www.sportskeeda.com/team/${toSlug(i2team)}" target="_blank" style="color:inherit;text-decoration:none">${esc(i2team)}</a>`
-    :'2nd Innings';
-  $('inn2-score').style.display='none';
+  /* ── Bowling tables ── */
+  /* AB2:AH12 → sc rows 1-11, cols 27-33 */
+  buildBowlTable('inn1-bowl', rng(sc,1,11,29,35));  /* AB2:AH12 sc[1]=sheet row2 */
+  /* BG2:BM12 → sc rows 1-11, cols 58-64 */
+  buildBowlTable('inn2-bowl', rng(sc,1,11,60,66));  /* BG2:BM12 sc[1]=sheet row2 */
 
-  buildBatTable('inn1-bat',  rng(sc,1,30,12,17));
-  buildBatTable('inn2-bat',  rng(sc,1,30,43,48));
-  buildBowlTable('inn1-bowl',rng(sc,1,11,29,35));
-  buildBowlTable('inn2-bowl',rng(sc,1,11,60,66));
-  buildLive(rng(sc,35,41,2,7));
+  /* ── Live stats C36:H42 → sc rows 35-41, cols 2-7 ── */
+  buildLive(rng(sc,35,41,2,7));  /* C36:H42 sc[35]=sheet row36 */
+
+
 
   hd('sc-ld');sh('sc-main');hd('sc-err');
 }
 
-/* ════════════════════════════════════════════
-   BATTING TABLE
-════════════════════════════════════════════ */
+/* ── Batting table builder ──
+   Reference format:
+   - Each batter: row1 = name + R B 4s 6s SR, row2 = dismissal/not-out (italic, muted)
+   - Extras: name cell + value + "(B:x, LB:x, NB:x, W:x)" inline in next col
+   - TOTAL: "TOTAL" + (ovs, RR) | runs/wkts | empty | fours | sixes
+*/
 const BAT_HDR=['Batter','R','B','4s','6s','SR'];
-function buildBatTable(id,data){
-  const tbl=$(id);tbl.innerHTML='';
+function buildBatTable(id, data){
+  const tbl=$(id); tbl.innerHTML='';
   const hasData=data.some(r=>r.some(c=>c));
   if(!hasData){
     tbl.innerHTML='<tbody><tr><td colspan="6" style="color:#9e9e9e;padding:14px;text-align:center;font-family:Barlow Condensed,sans-serif">No data yet</td></tr></tbody>';
     return;
   }
+
+  /* thead */
   const thead=document.createElement('thead');
   const hr=document.createElement('tr');
   BAT_HDR.forEach(h=>{const th=document.createElement('th');th.textContent=h;hr.appendChild(th);});
   thead.appendChild(hr);tbl.appendChild(thead);
 
+  /* tbody — process rows: collect player rows with their following dismissal row */
   const tbody=document.createElement('tbody');
+
+  /* We'll parse data into logical entries first */
   const entries=[];
   for(let i=0;i<data.length;i++){
     const cells=data[i].map(c=>(c||'').trim());
     if(!cells.some(c=>c)) continue;
+
     const name=cells[0]||'';
     const r_val=cells[1]||'';
     const isNumericR=r_val!==''&&!isNaN(parseFloat(r_val));
     const isExtras=/^extras?$/i.test(name);
     const isTotal=/^total$/i.test(name);
+
     if(isExtras){
-      entries.push({type:'extras',cells});
+      entries.push({type:'extras', cells});
+      /* next row may have breakdown */
       const nxt=data[i+1]?data[i+1].map(c=>(c||'').trim()):[];
-      if(nxt[0]&&/B:/i.test(nxt[0])){entries[entries.length-1].breakdown=nxt[0];i++;}
+      const breakdownTxt=nxt[0]||'';
+      if(breakdownTxt&&/B:/i.test(breakdownTxt)){
+        entries[entries.length-1].breakdown=breakdownTxt;
+        i++; /* consume */
+      }
       continue;
     }
     if(isTotal){
-      entries.push({type:'total',cells});
+      entries.push({type:'total', cells});
+      /* consume up to 3 following rows for overs/rr, fours, sixes */
       let extras={overs:'',fours:'',sixes:''};
       for(let k=1;k<=3;k++){
         const nr=data[i+k]?data[i+k].map(c=>(c||'').trim()):[];
         if(!nr.some(c=>c)) break;
         const v0=nr[0]||'';
-        if(k===1)extras.overs=v0||nr.join(' ').trim();
-        else if(k===2)extras.fours=v0;
-        else if(k===3)extras.sixes=v0;
+        /* overs row looks like "14.2 Ov, RR: 10.26" or just a number */
+        if(k===1) extras.overs=v0||nr.join(' ').trim();
+        else if(k===2) extras.fours=v0;
+        else if(k===3) extras.sixes=v0;
       }
       entries[entries.length-1].extras=extras;
-      i+=3;continue;
-    }
-    const isDismissal=!isNumericR&&name&&
-      name.match(/^(c |b |lbw|run.?out|st |not out|did not|caught|absent|runout)/i);
-    if(isDismissal){
-      const last=entries.filter(e=>e.type==='player').slice(-1)[0];
-      if(last)last.dismissal=name;
+      i+=3;
       continue;
     }
+
+    /* Dismissal/not-out row: no numeric R, looks like dismissal text */
+    const isDismissal=!isNumericR&&name&&
+      name.match(/^(c |b |lbw|run.?out|st |not out|did not|caught|absent|runout)/i);
+
+    if(isDismissal){
+      /* attach to last player entry */
+      const last=entries.filter(e=>e.type==='player').slice(-1)[0];
+      if(last) last.dismissal=name;
+      continue;
+    }
+
     if(name&&(isNumericR||r_val==='')){
-      entries.push({type:'player',cells,dismissal:''});
+      entries.push({type:'player', cells, dismissal:''});
     }
   }
 
+  /* Render entries */
   for(const e of entries){
     if(e.type==='player'){
+      const notOut=/not out/i.test(e.dismissal)||!e.dismissal;
+      /* Row 1: name + stats */
       const tr=document.createElement('tr');
       tr.classList.add('player-row');
-      if(/not out/i.test(e.dismissal))tr.classList.add('row-notout');
+      if(/not out/i.test(e.dismissal)) tr.classList.add('row-notout');
       e.cells.forEach((c,ci)=>{
         const td=document.createElement('td');
-        if(ci===0){
-          td.className='td-name';
-          /* Sportskeeda player link */
-          td.innerHTML=c?`<a href="https://www.sportskeeda.com/player/${toSlug(c)}" target="_blank">${esc(c)}</a>`:esc(c);
-        } else {
-          td.className='td-num';if(ci===1&&c)td.classList.add('bold');td.textContent=c;
-        }
+        if(ci===0){td.className='td-name';td.textContent=c;}
+        else{td.className='td-num';if(ci===1&&c)td.classList.add('bold');td.textContent=c;}
         tr.appendChild(td);
       });
       tbody.appendChild(tr);
-      /* Dismissal row */
+      /* Row 2: dismissal/not-out */
       const tr2=document.createElement('tr');
       tr2.className='dismiss-row';
       const td2=document.createElement('td');
       td2.setAttribute('colspan','6');
-      td2.style.cssText='padding-top:1px;padding-bottom:6px;font-style:italic;font-size:.72rem;font-family:Barlow Condensed,sans-serif;border-bottom:1px solid #f0f0f0;';
-      td2.style.color=/not out/i.test(e.dismissal)?'#2e7d32':'#757575';
+      td2.style.paddingTop='1px';
+      td2.style.paddingBottom='6px';
+      td2.style.fontStyle='italic';
+      td2.style.fontSize='.72rem';
+      td2.style.color= /not out/i.test(e.dismissal)?'#2e7d32':'#757575';
+      td2.style.fontFamily='Barlow Condensed,sans-serif';
       td2.textContent=e.dismissal||'';
       tr2.appendChild(td2);
       tbody.appendChild(tr2);
+
     } else if(e.type==='extras'){
-      const tr=document.createElement('tr');tr.className='row-extras';
-      const td0=document.createElement('td');td0.className='td-total-lbl';td0.textContent='Extras';tr.appendChild(td0);
-      const td1=document.createElement('td');td1.className='td-num bold';td1.textContent=e.cells[1]||'';tr.appendChild(td1);
-      const td2=document.createElement('td');td2.setAttribute('colspan','4');td2.style.cssText='text-align:left;color:#757575;font-size:.75rem;font-family:Barlow Condensed,sans-serif;';
-      td2.textContent=e.breakdown||e.cells[2]||'';tr.appendChild(td2);
+      const tr=document.createElement('tr');
+      tr.className='row-extras';
+      /* Cell 0: "Extras" label */
+      const td0=document.createElement('td');
+      td0.className='td-total-lbl';td0.textContent='Extras';
+      tr.appendChild(td0);
+      /* Cell 1: count value */
+      const td1=document.createElement('td');
+      td1.className='td-num bold';td1.textContent=e.cells[1]||'';
+      tr.appendChild(td1);
+      /* Cell 2: breakdown text spanning rest */
+      const td2=document.createElement('td');
+      td2.setAttribute('colspan','4');
+      td2.style.textAlign='left';
+      td2.style.color='#757575';
+      td2.style.fontSize='.75rem';
+      td2.style.fontFamily='Barlow Condensed,sans-serif';
+      td2.textContent=e.breakdown||e.cells[2]||'';
+      tr.appendChild(td2);
       tbody.appendChild(tr);
+
     } else if(e.type==='total'){
-      const tr=document.createElement('tr');tr.className='row-total';
-      const td0=document.createElement('td');td0.className='td-total-lbl';
+      const tr=document.createElement('tr');
+      tr.className='row-total';
+      /* Col 0: "TOTAL" + (overs, RR) */
+      const td0=document.createElement('td');
+      td0.className='td-total-lbl';
       const overs=e.extras?e.extras.overs:'';
       td0.innerHTML=`<span style="font-weight:700">TOTAL</span>${overs?`<span style="font-size:.72rem;color:#757575;font-weight:400;margin-left:6px">${esc(overs)}</span>`:''}`;
       tr.appendChild(td0);
-      const td1=document.createElement('td');td1.className='td-total-val';td1.textContent=e.cells[1]||'';tr.appendChild(td1);
+      /* Col 1 (R): runs/wkts */
+      const td1=document.createElement('td');
+      td1.className='td-total-val';
+      td1.textContent=e.cells[1]||'';
+      tr.appendChild(td1);
+      /* Col 2 (B): empty */
       const td2=document.createElement('td');td2.textContent='';tr.appendChild(td2);
-      const td3=document.createElement('td');td3.className='td-num bold';td3.textContent=e.extras?e.extras.fours:(e.cells[3]||'');tr.appendChild(td3);
-      const td4=document.createElement('td');td4.className='td-num bold';td4.textContent=e.extras?e.extras.sixes:(e.cells[4]||'');tr.appendChild(td4);
+      /* Col 3 (4s): total fours */
+      const td3=document.createElement('td');
+      td3.className='td-num bold';
+      td3.textContent=e.extras?e.extras.fours:(e.cells[3]||'');
+      tr.appendChild(td3);
+      /* Col 4 (6s): total sixes */
+      const td4=document.createElement('td');
+      td4.className='td-num bold';
+      td4.textContent=e.extras?e.extras.sixes:(e.cells[4]||'');
+      tr.appendChild(td4);
+      /* Col 5 (SR): empty */
       const td5=document.createElement('td');td5.textContent='';tr.appendChild(td5);
       tbody.appendChild(tr);
     }
@@ -530,36 +726,38 @@ function buildBatTable(id,data){
   tbl.appendChild(tbody);
 }
 
-/* ════════════════════════════════════════════
-   BOWLING TABLE
-════════════════════════════════════════════ */
+/* ── Bowling table builder ──
+   Headers hardcoded: Bowler | O | M | R | W | ER | EXT
+*/
 const BOWL_HDR=['Bowler','O','M','R','W','ER','EXT'];
-function buildBowlTable(id,data){
-  const tbl=$(id);tbl.innerHTML='';
+function buildBowlTable(id, data){
+  const tbl=$(id); tbl.innerHTML='';
   const hasData=data.some(r=>r.some(c=>c));
   if(!hasData){
     tbl.innerHTML='<tbody><tr><td colspan="7" style="color:#9e9e9e;padding:14px;text-align:center;font-family:Barlow Condensed,sans-serif">No data yet</td></tr></tbody>';
     return;
   }
+
   const thead=document.createElement('thead');
   const hr=document.createElement('tr');
   BOWL_HDR.forEach(h=>{const th=document.createElement('th');th.textContent=h;hr.appendChild(th);});
   thead.appendChild(hr);tbl.appendChild(thead);
+
   const tbody=document.createElement('tbody');
   for(const row of data){
     const cells=row.map(c=>(c||'').trim());
-    if(!cells[0]||/^bowlers?$/i.test(cells[0]))continue;
-    if(!cells.some(c=>c))continue;
+    /* Skip if no name or looks like a header row */
+    if(!cells[0]||/^bowler$/i.test(cells[0])) continue;
+    if(!cells.some(c=>c)) continue;
+
     const tr=document.createElement('tr');
     cells.forEach((c,ci)=>{
       const td=document.createElement('td');
-      if(ci===0){
-        td.className='td-name';
-        /* Sportskeeda player link */
-        td.innerHTML=c?`<a href="https://www.sportskeeda.com/player/${toSlug(c)}" target="_blank">${esc(c)}</a>`:esc(c);
-      } else {
+      if(ci===0){td.className='td-name';td.textContent=c;}
+      else{
         td.className='td-num';
-        if(ci===4&&parseFloat(c)>0)td.style.color='#1a237e';
+        /* Highlight wickets col (index 4) */
+        if(ci===4&&parseFloat(c)>0) td.style.color='#1a237e';
         td.textContent=c;
       }
       tr.appendChild(td);
@@ -569,62 +767,82 @@ function buildBowlTable(id,data){
   tbl.appendChild(tbody);
 }
 
-/* ════════════════════════════════════════════
-   LIVE STATS
-════════════════════════════════════════════ */
+/* ── Live stats (C36:H42) ──
+   Detects "Batters"/"Bowlers" section headers,
+   "Partnership" rows, and player stat rows.
+*/
 function buildLive(data){
-  const box=$('live-box'),tbl=$('live-tbl');
+  const box=$('live-box'), tbl=$('live-tbl');
   tbl.innerHTML='';
   if(!data.some(r=>r.some(c=>c))){hd('live-box');return;}
-  let html='',batHdrDone=false,bowlHdrDone=false;
+
+  let html='';
+  let batHdrDone=false, bowlHdrDone=false;
+  let curSection='';
+
   for(const row of data){
     const cells=row.map(c=>(c||'').trim());
-    if(!cells.some(c=>c))continue;
+    if(!cells.some(c=>c)) continue;
     const c0=cells[0];
+
     if(/^batters?$/i.test(c0)){
+      curSection='bat';
       html+=`<tr class="live-sec-row"><td colspan="6">🏏 ${esc(c0)}</td></tr>`;
-      if(!batHdrDone){html+=`<tr><th>Batter</th><th>R</th><th>B</th><th>4s</th><th>6s</th><th>SR</th></tr>`;batHdrDone=true;}
+      if(!batHdrDone){
+        /* Header row for batters: blank, R, B, 4s, 6s, SR */
+        html+=`<tr><th>Batter</th><th>R</th><th>B</th><th>4s</th><th>6s</th><th>SR</th></tr>`;
+        batHdrDone=true;
+      }
       continue;
     }
     if(/^bowlers?$/i.test(c0)){
+      curSection='bowl';
       html+=`<tr class="live-sec-row"><td colspan="6">⚾ ${esc(c0)}</td></tr>`;
-      if(!bowlHdrDone){html+=`<tr><th>Bowler</th><th>O</th><th>M</th><th>R</th><th>W</th><th>ECO</th></tr>`;bowlHdrDone=true;}
+      if(!bowlHdrDone){
+        html+=`<tr><th>Bowler</th><th>O</th><th>M</th><th>R</th><th>W</th><th>ECO</th></tr>`;
+        bowlHdrDone=true;
+      }
       continue;
     }
     if(/^partner/i.test(c0)){
-      const detail=cells.slice(1).find(v=>v)||'';
-      const display=detail?'Partnership: '+detail:c0;
+      /* C39=Partnership label, D39=details (next col) — combine them */
+      const detail = cells.slice(1).find(v=>v) || '';  /* cells[1]=D39 */
+      const display = detail ? 'Partnership: ' + detail : c0;
       html+=`<tr class="live-partnership"><td colspan="6">${esc(display)}</td></tr>`;
       continue;
     }
-    /* Player row — first cell gets Sportskeeda link */
+
+    /* Player row */
     html+=`<tr>`;
     cells.forEach((c,i)=>{
-      if(i===0&&c){
-        html+=`<td><a href="https://www.sportskeeda.com/player/${toSlug(c)}" target="_blank" style="color:inherit;text-decoration:none">${esc(c)}</a></td>`;
-      } else {
-        html+=`<td>${esc(c)}</td>`;
-      }
+      html+=`<td>${esc(c)}</td>`;
     });
     html+=`</tr>`;
   }
+
   tbl.innerHTML=`<tbody>${html}</tbody>`;
   sh('live-box');
 }
 
 /* ════════════════════════════════════════════
-   PREDICTIONS
+   PREDICTIONS — 100% UNCHANGED from original
+   Uses "Prediction LO" data (pred param)
 ════════════════════════════════════════════ */
 const FIELDS=[
-  {col:2,lbl:'Winner',cls:'winner'},{col:3,lbl:'1st Inn. Score',cls:''},
-  {col:4,lbl:'2nd Inn. Score',cls:''},{col:5,lbl:'Player 1',cls:''},
-  {col:6,lbl:'Player 2',cls:''},{col:7,lbl:'Player 3',cls:''},
-  {col:8,lbl:'Player 4',cls:''},{col:9,lbl:'Player 5',cls:''},
-  {col:10,lbl:'Captain ★ 2×',cls:'captain'},{col:11,lbl:'V.Captain 1.5×',cls:'vc'},
+  {col:2, lbl:'Winner',         cls:'winner'},
+  {col:3, lbl:'1st Inn. Score', cls:''},
+  {col:4, lbl:'2nd Inn. Score', cls:''},
+  {col:5, lbl:'Player 1',       cls:''},
+  {col:6, lbl:'Player 2',       cls:''},
+  {col:7, lbl:'Player 3',       cls:''},
+  {col:8, lbl:'Player 4',       cls:''},
+  {col:9, lbl:'Player 5',       cls:''},
+  {col:10,lbl:'Captain ★ 2×',   cls:'captain'},
+  {col:11,lbl:'V.Captain 1.5×', cls:'vc'},
 ];
 const ppCls=v=>v<=0?'z':v>=50?'h':'';
 
-function renderPredictions(predRows,all){
+function renderPredictions(predRows, all){
   const entries=predRows.map((pred,ri)=>{
     const ptsRow=all[ri+1+22]||[];
     const name=(pred[1]||'').trim();
@@ -633,12 +851,14 @@ function renderPredictions(predRows,all){
     return{pred,ptsRow,name,totalPts};
   }).filter(Boolean).sort((a,b)=>b.totalPts-a.totalPts);
 
-  const winnerCount=Math.floor(entries.length/2);
+  const winnerCount = Math.floor(entries.length / 2);
   const list=$('pred-list');list.innerHTML='';
 
   entries.forEach((e,i)=>{
     const rank=i+1;
+   const rc='';
     const {pred,ptsRow,name,totalPts}=e;
+
     let det=FIELDS.map(f=>{
       const val=(pred[f.col]||'').trim();
       const pts=n0(ptsRow[f.col]);
@@ -648,25 +868,40 @@ function renderPredictions(predRows,all){
         <span class="pp ${ppCls(pts)}">${fmt(pts)} pts</span>
       </div>`;
     }).join('');
-    const eQ=(pred[12]||'').trim(),eA=(pred[13]||'').trim(),ePts=n0(ptsRow[12]);
-    if(eQ||eA) det+=`<div class="pred-row"><span class="pred-lbl">Extra Pred.</span><span class="pred-val extra">${esc(eQ+(eA?' → '+eA:''))}</span><span class="pp ${ppCls(ePts)}">${fmt(ePts)} pts</span></div>`;
 
+    const eQ=(pred[12]||'').trim(),eA=(pred[13]||'').trim();
+    const ePts=n0(ptsRow[12]);
+    if(eQ||eA){
+      det+=`<div class="pred-row">
+        <span class="pred-lbl">Extra Pred.</span>
+        <span class="pred-val extra">${esc(eQ+(eA?' → '+eA:''))}</span>
+        <span class="pp ${ppCls(ePts)}">${fmt(ePts)} pts</span>
+      </div>`;
+    }
+
+    const isFirst=rank===1;
     const card=document.createElement('div');
     card.className='pred-card';card.style.animationDelay=(i*.04)+'s';
     card.innerHTML=`
       <div class="pred-summary" onclick="toggleCard(this.closest('.pred-card'))">
-        <div class="pred-rank">${rank<=winnerCount?'🏆':rank}</div>
-        <div class="pred-avt ${rank===1?'r1-avt':''}">${esc(initials(name))}</div>
+        <div class="pred-rank ${rc}">${rank<=winnerCount?'🏆':rank}</div>
+        <div class="pred-avt ${isFirst?'r1-avt':''}">
+          ${esc(initials(name))}
+        </div>
         <div class="pred-nm-wrap">
           <div class="pred-nm">${esc(name)}</div>
           <div class="pred-ts-sm">${fmtDate(pred[0])}</div>
         </div>
-        <div><div class="pred-tot">${fmt(totalPts)}</div><div class="pred-tot-lbl">pts</div></div>
+        <div>
+          <div class="pred-tot">${fmt(totalPts)}</div>
+          <div class="pred-tot-lbl">pts</div>
+        </div>
         <div class="expand-btn">+</div>
       </div>
       <div class="pred-details">${det}</div>`;
     list.appendChild(card);
   });
+
   $('pred-cnt').textContent=entries.length+' players';
   hd('pred-ld');sh('pred-main');hd('pred-err');
 }
@@ -674,47 +909,50 @@ function renderPredictions(predRows,all){
 function toggleCard(card){card.classList.toggle('open');}
 
 /* ════════════════════════════════════════════
-   POINTS TABLE
+   POINTS TABLE — Scorecard T20 C3:H35
+   Headers: Player Name, Points, Batting, Bowling, Fielding, Sel. by, Cap. by,	VC. by
+   C=col2, D=col3, E=col4, F=col5, G=col6, H=col7
+   Row 3 (index 2) = headers, rows 4-35 (index 3-34) = data
 ════════════════════════════════════════════ */
 function renderPoints(sc){
-  const tbl=$('pts-tbl');tbl.innerHTML='';
-  const hdrs=['Player Name','Total Points','Batting Pts','Bowling Pts','Fielding Pts','Selected by','Captain by','V.Captain by'];
-  const dataRows=sc.slice(2,35).filter(r=>{
-    const cells=r.slice(2,10).map(c=>(c||'').trim());
-    if(!cells.some(c=>c))return false;
-    if(/^player.?name$/i.test(cells[0]))return false;
-    return true;
-  });
+  const tbl=$('pts-tbl'); tbl.innerHTML='';
+  /* C2:H2 = sc[1] cols 2-7 = headers */
+  /* Headers hardcoded — sheet C2:H2 often contains merged match title */
+  const hdrs=['Player Name','Total Points','Batting Pts','Bowling Pts','Fielding Pts','Selected by','Captain by','V.Captain by' ];
+  /* C3:H35 = sc[1..34] cols 2-7 = data */
+  const dataRows=sc.slice(1,34).filter(r=>r.slice(2,10).some(c=>c)); /* C3:H35 = sc[1..34] */
+  console.log('Points headers from C2:J2 =',hdrs);
+  console.log('Points data rows:',dataRows.length);
+
   if(!dataRows.length){
-    tbl.innerHTML='<tbody><tr><td colspan="8" style="color:#9e9e9e;padding:16px;text-align:center">No points data yet</td></tr></tbody>';
+    tbl.innerHTML='<tbody><tr><td colspan="6" style="color:#9e9e9e;padding:16px;text-align:center">No points data yet</td></tr></tbody>';
     hd('pts-ld');sh('pts-main');hd('pts-err');return;
   }
+
+  /* thead */
   const thead=document.createElement('thead');
   const hr=document.createElement('tr');
-  hdrs.forEach(h=>{const th=document.createElement('th');th.textContent=h;hr.appendChild(th);});
+  const finalHdrs=hdrs.length&&hdrs.some(h=>h)?hdrs:['Player Name','Points','Batting','Bowling','Fielding','Sel. by','Captain by','V.Captain by'];
+  finalHdrs.forEach(h=>{const th=document.createElement('th');th.textContent=h;hr.appendChild(th);});
   thead.appendChild(hr);tbl.appendChild(thead);
 
-  const sorted=[...dataRows].sort((a,b)=>n0(b[3])-n0(a[3]));
+  /* tbody — sorted by Points (col index 1) desc */
+  const sorted=[...dataRows].sort((a,b)=>n0(b[3])-n0(a[3]));  /* col D = sheet index 3 = Points */
   const tbody=document.createElement('tbody');
   sorted.forEach(row=>{
     const cells=row.slice(2,10).map(c=>(c||'').trim());
-    if(!cells[0])return;
+    if(!cells[0])return;  /* skip empty name rows */
     const tr=document.createElement('tr');
     cells.forEach((c,ci)=>{
       const td=document.createElement('td');
-      if(ci===0){
-        /* Sportskeeda player link in points table */
-        td.innerHTML=c?`<a href="https://www.sportskeeda.com/player/${toSlug(c)}" target="_blank">${esc(c)}</a>`:esc(c);
-      } else if(ci>=5){
-        td.className='pts-sel';td.textContent=c;
-      } else {
-        td.textContent=c;
-      }
+      if(ci===5){td.className='pts-sel';td.textContent=c;}
+      else{td.textContent=c;}
       tr.appendChild(td);
     });
     tbody.appendChild(tr);
   });
   tbl.appendChild(tbody);
+
   hd('pts-ld');sh('pts-main');hd('pts-err');
 }
 
