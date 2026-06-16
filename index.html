@@ -308,7 +308,7 @@ function playerLink(name){
   return name?`<a href="https://www.sportskeeda.com/player/${toSlug(name)}" target="_blank" style="color:inherit;text-decoration:none">${esc(name)}</a>`:esc(name||'');
 }
 function teamLink(name){
-  return name?`<a href="https://www.sportskeeda.com/team/${toSlug(name)}" target="_blank" style="color:inherit;text-decoration:none">${esc(name)}</a>`:'';
+  return name?esc(name):'';
 }
 
 /* ── LOAD ── */
