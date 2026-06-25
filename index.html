@@ -591,7 +591,7 @@ function renderPredictions(predRows,all){
       return `<div class="pred-row"><span class="pp ${ppCls(pts)}">${fmt(pts)}</span><div class="pred-row-info"><span class="pred-lbl">${f.lbl}</span>${val?`<span class="pred-val ${f.cls}">${esc(val)}</span>`:`<span class="pred-val empty">—</span>`}</div></div>`;
     }).join('');
     const eQ=(pred[12]||'').trim(),eA=(pred[13]||'').trim(),ePts=n0(ptsRow[12]);
-    if(eQ||eA)det+=`<div class="pred-row"><span class="pp ${ppCls(ePts)}">${fmt(ePts)}</span><div class="pred-row-info"><span class="pred-lbl">Extra Pred.</span><span class="pred-val extra">${esc(eQ+(eA?' → '+eA:''))}</span></div></div>`;
+    if(eQ||eA)det+=`<div class="pred-row"><span class="pp ${ppCls(ePts)}">${fmt(ePts)}</span><div class="pred-row-info"><span class="pred-lbl">Extraordinary Prediction (50 &amp; 100 points)</span><span class="pred-val extra">${esc(eQ)}${eA?` → <span style="color:#212121;font-weight:600">${esc(eA)}</span>`:''}</span></div></div>`;
     const card=document.createElement('div');
     card.className='pred-card';card.style.animationDelay=(i*.04)+'s';
     card.innerHTML=`
