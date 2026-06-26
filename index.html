@@ -381,7 +381,7 @@ function renderScorecard(pred,sc){
   const fixture=(pred[21]||[])[0]||'';
   const venue  =(pred[22]||[])[12]||'';
   const rr     =(pred[22]||[])[8]||'';
-  const result =cel(sc,34,12);
+  const result =cel(sc,3,85);
   $('mi-fixture').textContent=fixture||'Match';
   if(venue){$('mi-venue').textContent=venue;sh('mi-venue-row');}else{hd('mi-venue-row');}
   if(rr){$('mi-rr').textContent=rr;sh('mi-rr-row');}else{hd('mi-rr-row');}
