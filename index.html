@@ -82,7 +82,7 @@ body{font-family:'Barlow',sans-serif;background:#f5f5f5;color:#212121;min-height
 .td-num{color:#212121;font-size:.82rem}
 .td-num.bold{font-weight:700;color:#000}
 .td-total-lbl{font-family:'Barlow Condensed',sans-serif;font-weight:700;color:#212121;font-size:.84rem}
-.td-total-val{font-family:'Oswald',sans-serif;font-weight:700;color:#1a237e;font-size:.9rem}
+.td-total-val{font-family:'Oswald',sans-serif;font-weight:700;color:#000;font-size:1.25rem}
 .row-notout{background:#f1f8e9}
 .sc-tbl tbody tr.dismiss-row td{padding-top:1px;padding-bottom:5px;font-style:italic;color:#757575;font-size:.72rem;font-family:'Barlow Condensed',sans-serif;border-bottom:1px solid #f0f0f0;}
 .sc-tbl tbody tr.dismiss-row td:not(:first-child){color:transparent}
@@ -348,7 +348,7 @@ function playerLink(name){
   return name?`<a href="https://www.sportskeeda.com/player/${toSlug(clean)}" target="_blank" style="color:inherit;text-decoration:none">${esc(name)}</a>`:esc(name||'');
 }
 function teamLink(name){
-  return name?esc(name):'';
+  return name?`<a href="https://www.sportskeeda.com/team/${toSlug(name)}" target="_blank" style="color:inherit;text-decoration:none">${esc(name)}</a>`:'';
 }
 
 /* Splits merged "Team Name 255/4(20)" into {name, score} */
@@ -417,11 +417,18 @@ function renderScorecard(pred,sc){
   $('score-t2-nm').innerHTML=i2team?teamLink(i2team):'Team 2';
   $('score-t2-sc').textContent=i2score||'';
 
+  const inn2BatData=rng(sc,1,30,43,48);
+  const inn2HasData=inn2BatData.some(r=>r.some(c=>c));
+
   buildBatTable('inn1-bat', rng(sc,1,30,12,17));
-  buildBatTable('inn2-bat', rng(sc,1,30,43,48));
+  buildBatTable('inn2-bat', inn2BatData);
   buildBowlTable('inn1-bowl',rng(sc,1,11,29,35));
   buildBowlTable('inn2-bowl',rng(sc,1,11,60,66));
   buildLive(rng(sc,35,41,2,7));
+
+  /* Auto-select 2nd innings if it has data, else stay on 1st */
+  switchInnings(inn2HasData?2:1);
+
   hd('sc-ld');sh('sc-main');hd('sc-err');
 }
 
@@ -581,10 +588,12 @@ function buildLive(data){
       html+=`<tr class="live-partnership"><td colspan="6">${esc(detail?'Partnership: '+detail:c0)}</td></tr>`;
       continue;
     }
-    /* Player row — first cell gets Sportskeeda link */
+    /* Skip metadata rows (Extras, Did not bat, etc.) from getting a player link */
+    const isMetaRow=/^(extras?|did not bat|yet to bat|last wicket|fall of wickets|powerplay|toss|review|total)/i.test(c0);
+    const hasNumericStat=cells.slice(1).some(v=>v&&!isNaN(parseFloat(v)));
     html+=`<tr>`;
     cells.forEach((c,i)=>{
-      if(i===0&&c)html+=`<td>${playerLink(c)}</td>`;
+      if(i===0&&c&&!isMetaRow&&hasNumericStat)html+=`<td>${playerLink(c)}</td>`;
       else html+=`<td>${esc(c)}</td>`;
     });
     html+=`</tr>`;
@@ -642,7 +651,7 @@ function buildPredCard(e,displayRank,isWinner,idx){
     return `<div class="pred-row"><span class="pp ${ppCls(pts)}">${fmt(pts)}</span><div class="pred-row-info"><span class="pred-lbl">${f.lbl}</span>${val?`<span class="pred-val ${f.cls}">${esc(val)}</span>`:`<span class="pred-val empty">—</span>`}</div></div>`;
   }).join('');
   const eQ=(pred[12]||'').trim(),eA=(pred[13]||'').trim(),ePts=n0(ptsRow[12]);
-  if(eQ||eA)det+=`<div class="pred-row"><span class="pp ${ppCls(ePts)}">${fmt(ePts)}</span><div class="pred-row-info"><span class="pred-lbl">Extra Pred.</span><span class="pred-val extra">${esc(eQ+(eA?' → '+eA:''))}</span></div></div>`;
+  if(eQ||eA)det+=`<div class="pred-row"><span class="pp ${ppCls(ePts)}">${fmt(ePts)}</span><div class="pred-row-info"><span class="pred-lbl">Extraordinary Prediction (50 &amp; 100 points)</span><span class="pred-val extra">${esc(eQ)}${eA?` → <span style="color:#212121;font-weight:600">${esc(eA)}</span>`:''}</span></div></div>`;
   const card=document.createElement('div');
   card.className='pred-card';card.style.animationDelay=(idx*.04)+'s';
   card.innerHTML=`
