@@ -455,22 +455,36 @@ function buildBatTable(id,data){
     const isExtras=/^extras?$/i.test(name);
     const isTotal=/^total$/i.test(name);
     if(isExtras){
-      entries.push({type:'extras',cells});
-      const nxt=data[i+1]?data[i+1].map(c=>(c||'').trim()):[];
-      if(nxt[0]&&/B:/i.test(nxt[0])){entries[entries.length-1].breakdown=nxt[0];i++;}
-      continue;
+      /* Count + breakdown often live on their OWN following rows (col0 only) */
+      let count=cells[1]||'', breakdown=cells[2]||'';
+      let j=i+1;
+      while(j<data.length){
+        const nr=data[j].map(c=>(c||'').trim());
+        if(!nr.some(c=>c)){j++;continue;}
+        const isStandalone=nr[0]&&!nr.slice(1).some(c=>c);
+        if(!isStandalone)break; /* hit a real multi-column row (player/total) — stop */
+        if(!count&&!isNaN(parseFloat(nr[0]))){count=nr[0];j++;continue;}
+        if(!breakdown&&/B:/i.test(nr[0])){breakdown=nr[0];j++;continue;}
+        break; /* unrecognised standalone row — stop consuming */
+      }
+      entries.push({type:'extras',cells,count,breakdown});
+      i=j-1;continue;
     }
     if(isTotal){
-      entries.push({type:'total',cells});
-      let ex={overs:'',fours:'',sixes:''};
-      for(let k=1;k<=3;k++){
-        const nr=data[i+k]?data[i+k].map(c=>(c||'').trim()):[];
-        if(!nr.some(c=>c))break;
-        if(k===1)ex.overs=nr[0]||nr.join(' ').trim();
-        else if(k===2)ex.fours=nr[0];
-        else if(k===3)ex.sixes=nr[0];
+      /* Score (and optional overs/RR) often live on their OWN following rows */
+      let score=cells[1]||'', overs='';
+      let j=i+1,consumed=0;
+      while(j<data.length&&consumed<4){
+        const nr=data[j].map(c=>(c||'').trim());
+        if(!nr.some(c=>c)){j++;continue;}
+        const isStandalone=nr[0]&&!nr.slice(1).some(c=>c);
+        if(!isStandalone)break; /* real row ahead — stop */
+        if(!score){score=nr[0];j++;consumed++;continue;}
+        if(!overs&&/ov|rr|\(/i.test(nr[0])){overs=nr[0];j++;consumed++;continue;}
+        j++;consumed++; /* discard any further stray rows (e.g. lone "5") */
       }
-      entries[entries.length-1].extras=ex;i+=3;continue;
+      entries.push({type:'total',cells,score,overs});
+      i=j-1;continue;
     }
     const isDismissal=!isNumericR&&name&&
       name.match(/^(c |b |lbw|run.?out|st |not out|did not|caught|absent|runout)/i);
@@ -506,22 +520,20 @@ function buildBatTable(id,data){
     }else if(e.type==='extras'){
       const tr=document.createElement('tr');tr.className='row-extras';
       const td0=document.createElement('td');td0.className='td-total-lbl';td0.textContent='Extras';tr.appendChild(td0);
-      const td1=document.createElement('td');td1.className='td-num bold';td1.textContent=e.cells[1]||'';tr.appendChild(td1);
+      const td1=document.createElement('td');td1.className='td-num bold';td1.textContent=e.count||'';tr.appendChild(td1);
       const td2=document.createElement('td');td2.setAttribute('colspan','4');
       td2.style.cssText='text-align:left;color:#757575;font-size:.75rem;font-family:Barlow Condensed,sans-serif;';
-      td2.textContent=e.breakdown||e.cells[2]||'';tr.appendChild(td2);
+      td2.textContent=e.breakdown||'';tr.appendChild(td2);
       tbody.appendChild(tr);
     }else if(e.type==='total'){
       const tr=document.createElement('tr');tr.className='row-total';
       const td0=document.createElement('td');td0.className='td-total-lbl';
-      const overs=e.extras?e.extras.overs:'';
-      td0.innerHTML=`<span style="font-weight:700">TOTAL</span>${overs?`<span style="font-size:.72rem;color:#757575;font-weight:400;margin-left:6px">${esc(overs)}</span>`:''}`;
+      td0.innerHTML=`<span style="font-weight:600;font-size:.84rem;color:#212121">TOTAL</span>`;
       tr.appendChild(td0);
-      const td1=document.createElement('td');td1.className='td-total-val';td1.textContent=e.cells[1]||'';tr.appendChild(td1);
-      const td2=document.createElement('td');td2.textContent='';tr.appendChild(td2);
-      const td3=document.createElement('td');td3.className='td-num bold';td3.textContent=e.extras?e.extras.fours:(e.cells[3]||'');tr.appendChild(td3);
-      const td4=document.createElement('td');td4.className='td-num bold';td4.textContent=e.extras?e.extras.sixes:(e.cells[4]||'');tr.appendChild(td4);
-      const td5=document.createElement('td');td5.textContent='';tr.appendChild(td5);
+      const td1=document.createElement('td');td1.setAttribute('colspan','5');
+      td1.style.textAlign='right';
+      td1.innerHTML=`<span class="td-total-val">${esc(e.score||'')}</span>${e.overs?`<span style="font-size:.72rem;color:#757575;font-weight:400;margin-left:8px">${esc(e.overs)}</span>`:''}`;
+      tr.appendChild(td1);
       tbody.appendChild(tr);
     }
   }
