@@ -127,8 +127,74 @@ body{font-family:'Barlow',sans-serif;background:#f5f5f5;color:#212121;min-height
 .expand-btn{width:28px;height:28px;border-radius:50%;background:#f5f5f5;border:1px solid #e0e0e0;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.9rem;color:#757575;transition:all .2s;font-weight:700;line-height:1}
 .pred-summary:hover .expand-btn{background:#e6f1fb;border-color:#85b7eb;color:#185fa5}
 .pred-card.open .expand-btn{background:#0c447c;border-color:#0c447c;color:#fff;transform:rotate(45deg)}
-.pred-details{display:none;border-top:1px solid #e0e0e0;padding:12px 16px 14px;background:#fafafa}
+.pred-details{display:none;border-top:1px solid #e0e0e0;padding:0;overflow:hidden}
 .pred-card.open .pred-details{display:block}
+
+/* ════════ CRICKET FIELD DETAIL VIEW ════════ */
+.field-wrap{
+  position:relative;padding:18px 14px 16px;
+  background:#3a7d2c;
+  background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0 22px,rgba(0,0,0,.04) 22px 44px);
+  overflow:hidden;
+}
+.field-ground{
+  position:relative;max-width:480px;margin:0 auto;
+}
+.field-circle{
+  position:absolute;top:78px;left:50%;transform:translateX(-50%);
+  width:230px;height:230px;border-radius:50%;
+  border:1.5px solid rgba(255,255,255,.55);
+  pointer-events:none;
+}
+.field-pitch{
+  position:absolute;top:78px;left:50%;transform:translateX(-50%);
+  width:34px;height:230px;background:rgba(200,170,130,.55);
+  border-radius:4px;pointer-events:none;
+}
+.field-winner{
+  display:flex;align-items:center;gap:8px;background:#fff;border-radius:10px;
+  padding:8px 14px;margin:0 auto 14px;max-width:300px;box-shadow:0 2px 6px rgba(0,0,0,.2);
+  position:relative;z-index:2;
+}
+.field-winner .fp{min-width:38px;text-align:center;}
+.field-winner .ftxt{font-family:'Oswald',sans-serif;font-weight:700;font-size:.95rem;color:#212121;}
+.field-row-side{display:flex;justify-content:space-between;gap:8px;margin-bottom:10px;position:relative;z-index:2;}
+.field-card{
+  background:#fff;border-radius:8px;padding:8px 12px;display:flex;align-items:center;gap:8px;
+  box-shadow:0 2px 6px rgba(0,0,0,.18);flex:1;max-width:48%;
+}
+.field-card .fp{flex-shrink:0;}
+.field-card .flbl{font-size:.62rem;color:#888;text-transform:uppercase;letter-spacing:.5px;font-family:'Barlow Condensed',sans-serif;font-weight:600;display:block;}
+.field-card .fval{font-weight:700;font-size:.9rem;color:#212121;}
+.fp{
+  font-family:'Oswald',sans-serif;font-weight:700;font-size:1rem;
+  border-radius:7px;padding:6px 0;text-align:center;min-width:38px;
+}
+.fp.z{background:#fde2e2;color:#a32d2d;}
+.fp.t1{background:#e6f1fb;color:#185fa5;}
+.fp.t2{background:#b5d4f4;color:#0c447c;}
+.fp.t3{background:#85b7eb;color:#042c53;}
+.fp.t4{background:#378add;color:#fff;}
+.fp.t5{background:#0c447c;color:#fff;}
+.field-players{position:relative;z-index:2;margin:55px 0 8px;display:flex;flex-direction:column;gap:8px;}
+.field-prow{display:flex;justify-content:center;gap:8px;}
+.field-prow.single{justify-content:center;}
+.field-cap-row{display:flex;justify-content:center;gap:8px;margin-top:4px;position:relative;z-index:2;}
+.field-extra{
+  background:#fff;border-radius:10px;padding:10px 14px;margin-top:14px;
+  display:flex;align-items:flex-start;gap:10px;position:relative;z-index:2;
+  box-shadow:0 2px 6px rgba(0,0,0,.18);
+}
+.field-extra .flbl{font-size:.64rem;color:#888;text-transform:uppercase;letter-spacing:.5px;font-family:'Barlow Condensed',sans-serif;font-weight:600;display:block;margin-bottom:2px;}
+.field-extra .fval{font-size:.8rem;color:#cc4a1a;font-weight:600;line-height:1.35;}
+.field-extra .fval b{color:#212121;font-weight:700;}
+@media(max-width:420px){
+  .field-circle{width:190px;height:190px;top:78px;}
+  .field-pitch{height:190px;top:78px;}
+  .field-card{max-width:47%;padding:7px 9px;}
+  .field-card .fval{font-size:.8rem;}
+  .field-players{margin:48px 0 6px;}
+}
 .pred-row{display:flex;align-items:center;padding:10px 0;border-bottom:1px solid #f0f0f0;gap:14px}
 .pred-row:last-child{border-bottom:none}
 .pred-row-info{flex:1;min-width:0}
@@ -711,13 +777,58 @@ function renderPredictions(predRows,all){
 
 function buildPredCard(e,displayRank,isWinner,idx){
   const {pred,ptsRow,name,totalPts}=e;
-  let det=FIELDS.map(f=>{
-    const val=(pred[f.col]||'').trim();
-    const pts=n0(ptsRow[f.col]);
-    return `<div class="pred-row"><span class="pp ${ppCls(pts)}">${fmt(pts)}</span><div class="pred-row-info"><span class="pred-lbl">${f.lbl}</span>${val?`<span class="pred-val ${f.cls}">${esc(val)}</span>`:`<span class="pred-val empty">—</span>`}</div></div>`;
-  }).join('');
-  const eQ=(pred[12]||'').trim(),eA=(pred[13]||'').trim(),ePts=n0(ptsRow[12]);
-  if(eQ||eA)det+=`<div class="pred-row"><span class="pp ${ppCls(ePts)}">${fmt(ePts)}</span><div class="pred-row-info"><span class="pred-lbl">Extraordinary Prediction (50 &amp; 100 points)</span><span class="pred-val extra">${esc(eQ)}${eA?` → <span style="color:#212121;font-weight:600">${esc(eA)}</span>`:''}</span></div></div>`;
+
+  /* Pull individual field values + points */
+  const winnerVal=(pred[2]||'').trim(), winnerPts=n0(ptsRow[2]);
+  const inn1Val=(pred[3]||'').trim(),   inn1Pts=n0(ptsRow[3]);
+  const inn2Val=(pred[4]||'').trim(),   inn2Pts=n0(ptsRow[4]);
+  const players=[5,6,7,8,9].map(c=>({val:(pred[c]||'').trim(),pts:n0(ptsRow[c]),num:c-4}));
+  const capVal=(pred[10]||'').trim(),  capPts=n0(ptsRow[10]);
+  const vcVal=(pred[11]||'').trim(),   vcPts=n0(ptsRow[11]);
+  const eQ=(pred[12]||'').trim(), eA=(pred[13]||'').trim(), ePts=n0(ptsRow[12]);
+
+  const pp=(pts)=>`<span class="fp ${ppCls(pts)}">${fmt(pts)}</span>`;
+  const fieldCard=(lbl,val,pts)=>`<div class="field-card">${pp(pts)}<div><span class="flbl">${esc(lbl)}</span><span class="fval">${val?esc(val):'—'}</span></div></div>`;
+
+  const playersHtml=`
+    <div class="field-prow">
+      ${fieldCard('Player 1',players[0].val,players[0].pts)}
+      ${fieldCard('Player 2',players[1].val,players[1].pts)}
+    </div>
+    <div class="field-prow">
+      ${fieldCard('Player 3',players[2].val,players[2].pts)}
+      ${fieldCard('Player 4',players[3].val,players[3].pts)}
+    </div>
+    <div class="field-prow single">
+      ${fieldCard('Player 5',players[4].val,players[4].pts)}
+    </div>`;
+
+  const extraHtml=(eQ||eA)?`
+    <div class="field-extra">
+      ${pp(ePts)}
+      <div><span class="flbl">Extraordinary Prediction (50 &amp; 100 points)</span>
+      <span class="fval">${esc(eQ)}${eA?` → <b>${esc(eA)}</b>`:''}</span></div>
+    </div>`:'';
+
+  const fieldHtml=`
+    <div class="field-wrap">
+      <div class="field-ground">
+        <div class="field-winner">${pp(winnerPts)}<span class="ftxt">Winner: ${winnerVal?esc(winnerVal):'—'}</span></div>
+        <div class="field-circle"></div>
+        <div class="field-pitch"></div>
+        <div class="field-row-side">
+          ${fieldCard('1st Innings Score',inn1Val,inn1Pts)}
+          ${fieldCard('2nd Innings Score',inn2Val,inn2Pts)}
+        </div>
+        <div class="field-players">${playersHtml}</div>
+        <div class="field-cap-row">
+          ${fieldCard('Captain ★ 2×',capVal,capPts)}
+          ${fieldCard('V.Captain 1.5×',vcVal,vcPts)}
+        </div>
+        ${extraHtml}
+      </div>
+    </div>`;
+
   const card=document.createElement('div');
   card.className='pred-card';card.style.animationDelay=(idx*.04)+'s';
   card.innerHTML=`
@@ -730,7 +841,7 @@ function buildPredCard(e,displayRank,isWinner,idx){
       <div><div class="pred-tot">${fmt(totalPts)}</div><div class="pred-tot-lbl">pts</div></div>
       <div class="expand-btn">+</div>
     </div>
-    <div class="pred-details">${det}</div>`;
+    <div class="pred-details">${fieldHtml}</div>`;
   return card;
 }
 
